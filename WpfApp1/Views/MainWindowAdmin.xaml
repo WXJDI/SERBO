@@ -62,14 +62,14 @@
              Tag="{StaticResource color2}">
                         <StackPanel Orientation="Horizontal">
                             <fp:IconImage Icon="UserGroup" Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="Customers" Style="{StaticResource menuButtonText}"/>
+                            <TextBlock Text="Workers" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
                     <RadioButton Style="{StaticResource menuButton }"
              Tag="{StaticResource color3}">
                         <StackPanel Orientation="Horizontal">
                             <fp:IconImage Icon="Truck" Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="Order" Style="{StaticResource menuButtonText}"/>
+                            <TextBlock Text="Orders" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
                     <RadioButton Style="{StaticResource menuButton }"
