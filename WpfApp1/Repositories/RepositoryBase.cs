@@ -13,7 +13,7 @@ namespace WpfApp1.Repositories
         private readonly String _connectionString;
         public RepositoryBase()
         {
-            _connectionString = "Server=LAPTOP-QNG4FGL3\\SQLEXPRESS; Database=Mybase; Integrated Security=true;";
+            _connectionString = "Server=LAPTOP-IQDBK836\\SQLEXPRESS; Database=Mybase; Integrated Security=true;";
         }
         protected SqlConnection GetConnection()
         {
