@@ -85,19 +85,39 @@
     <Compile Include="CustomControls\BindablePasswordBox.xaml.cs">
       <DependentUpon>BindablePasswordBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\ClientModel.cs" />
+    <Compile Include="Models\IClientRepository.cs" />
     <Compile Include="Models\IUserRepository.cs" />
+    <Compile Include="Models\IWorkerRepository.cs" />
     <Compile Include="Models\UserAccountModel.cs" />
     <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Models\WorkerModel.cs" />
+    <Compile Include="Repositories\ClientRepository.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Repositories\WorkerRepository.cs" />
     <Compile Include="Tools\WindowStateToMarginSizeConverter.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModelWorker.cs" />
     <Compile Include="ViewModels\MainWindowModelAdmin.cs" />
+    <Compile Include="ViewModels\UCBusiness\UCClientsBusiness.cs" />
+    <Compile Include="ViewModels\UCBusiness\UCWorkersBusiness.cs" />
     <Compile Include="ViewModels\ViewModelCommand.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\DataEntry\ClientDataEntry.xaml.cs">
+      <DependentUpon>ClientDataEntry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DataEntry\WorkerDataEntry.xaml.cs">
+      <DependentUpon>WorkerDataEntry.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UCs\UCClients.xaml.cs">
+      <DependentUpon>UCClients.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UCs\UCWorkers.xaml.cs">
+      <DependentUpon>UCWorkers.xaml</DependentUpon>
     </Compile>
     <Page Include="CustomControls\BindablePasswordBox.xaml">
       <SubType>Designer</SubType>
@@ -108,6 +128,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\UIColor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DataEntry\ClientDataEntry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DataEntry\WorkerDataEntry.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -131,6 +159,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UCs\UCClients.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UCs\UCWorkers.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -175,6 +211,7 @@
   <ItemGroup>
     <Resource Include="Images\Logo.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.5.1.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.5.1.0\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

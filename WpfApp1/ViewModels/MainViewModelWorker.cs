@@ -13,7 +13,7 @@ namespace WpfApp1.ViewModels
     {
         private UserAccountModel _currentUserAccount;
         
-        private IUserRepository userRepository;
+        private IWorkerRepository workerRepository;
 
         public UserAccountModel CurrentUserAccount
         {
@@ -31,18 +31,18 @@ namespace WpfApp1.ViewModels
 
         public MainViewModelWorker()
         {
-            userRepository = new UserRepository();
+            workerRepository = new WorkerRepository();
             CurrentUserAccount = new UserAccountModel();
             LoadCurrentUserData();
         }
 
         private void LoadCurrentUserData()
         {
-            var user = userRepository.GetByUsername(Thread.CurrentPrincipal.Identity.Name);
-            if (user != null)
+            WorkerModel worker = workerRepository.GetByUsername(Thread.CurrentPrincipal.Identity.Name);
+            if (worker != null)
             {
-                CurrentUserAccount.Username = user.Username;
-                CurrentUserAccount.DisplayName = $" {user.Name} {user.LastName}";
+                CurrentUserAccount.Username = worker.Username;
+                CurrentUserAccount.DisplayName = $" {worker.Name} {worker.LastName}";
                 CurrentUserAccount.ProfilePicture = null;
             }
             else

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using WpfApp1.Models;
 using WpfApp1.Repositories;
 
@@ -14,6 +15,8 @@ namespace WpfApp1.ViewModels
         private UserAccountModel _currentUserAccount;
 
         private IUserRepository userRepository;
+
+
 
         public UserAccountModel CurrentUserAccount
         {
@@ -35,6 +38,12 @@ namespace WpfApp1.ViewModels
             CurrentUserAccount = new UserAccountModel();
             LoadCurrentUserData();
         }
+
+        private bool canExecuteWorkersCommand(object obj)
+        {
+            return true;
+        }
+
 
         private void LoadCurrentUserData()
         {

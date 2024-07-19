@@ -1,0 +1,92 @@
+﻿<UserControl x:Class="WpfApp1.Views.UCs.UCWorkers"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WpfApp1.Views.UCs"
+             xmlns:uc="clr-namespace:WpfApp1.ViewModels.UCBusiness"
+             xmlns:fp="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+             mc:Ignorable="d" 
+             d:DesignHeight="590" d:DesignWidth="1050"
+             Background="#0A0031">
+    <UserControl.DataContext>
+        <uc:UCWorkersBusiness/>
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <DataTemplate x:Key="ListBoxItemTemplate1">
+            <Border  BorderBrush="White" BorderThickness="1" CornerRadius="5" Margin="5" >
+               <Grid Height="60" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="125"/>
+                    <ColumnDefinition Width="125"/>
+                    <ColumnDefinition Width="125"/>
+                    <ColumnDefinition Width="125"/>
+                    <ColumnDefinition Width="125"/>
+                    <ColumnDefinition Width="125"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Foreground="{StaticResource color3}" FontFamily="Montserret" FontWeight="Medium" FontSize="15" Grid.Column="0" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding IdWorker}" VerticalAlignment="Center"/>
+                <TextBlock Foreground="{StaticResource color3}" FontFamily="Montserret" FontWeight="Medium" FontSize="15" Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding Cin}" VerticalAlignment="Center"/>
+                <TextBlock Foreground="{StaticResource color3}" FontFamily="Montserret" FontWeight="Medium" FontSize="15" Grid.Column="2" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Center"/>
+                <TextBlock Foreground="{StaticResource color3}" FontFamily="Montserret" FontWeight="Medium" FontSize="15" Grid.Column="3" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding LastName}" VerticalAlignment="Center"/>
+                <TextBlock Foreground="{StaticResource color3}" FontFamily="Montserret" FontWeight="Medium" FontSize="15" Grid.Column="4" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding Email}" VerticalAlignment="Center"/>
+                <TextBlock Foreground="{StaticResource color3}" FontFamily="Montserret" FontWeight="Medium" FontSize="15" Grid.Column="5" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding NumTel}" VerticalAlignment="Center"/>
+            </Grid>
+            </Border>
+            
+        </DataTemplate>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="450"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Tag="{StaticResource titleColor3}">
+                    <StackPanel Orientation="Horizontal">
+                    <fp:IconImage Icon="Briefcase" Style="{StaticResource menuBlockIcon}"/>
+                    <TextBlock Text="Workers" Style="{StaticResource menuBlockText}"/>
+                </StackPanel>
+                </TextBlock>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="50"/>
+            </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Vertical" Grid.Column="0" >
+                    <Button Command="{Binding AddCommand}" Style="{StaticResource CraudButton }"
+                Tag="{StaticResource color8}"
+                Margin="0,20,0,0">
+                        <StackPanel Orientation="Horizontal">
+                            <fp:IconImage Icon="Plus" Style="{StaticResource menuButton2Icon}"/>
+                            <TextBlock Text="Add" Style="{StaticResource menuButton2Text}"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Command="{Binding DeleteCommand}" Style="{StaticResource CraudButton }"
+Tag="{StaticResource color9}" Margin="0,20,0,0">
+                        <StackPanel Orientation="Horizontal">
+                            <fp:IconImage Icon="Trash" Style="{StaticResource menuButton2Icon}"/>
+                            <TextBlock Text="Delete" Style="{StaticResource menuButton2Text}"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Command="{Binding EditCommand}" Style="{StaticResource CraudButton }"
+               Tag="{StaticResource color10}" Margin="0,20,0,0">
+                        <StackPanel Orientation="Horizontal">
+                            <fp:IconImage Icon="PenToSquare" Style="{StaticResource menuButton2Icon}"/>
+                            <TextBlock Text="Edit" Style="{StaticResource menuButton2Text}"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+                <ListBox Background="#0A0031"  BorderBrush="Blue" SelectedItem="{Binding Worker}" ItemTemplate="{DynamicResource ListBoxItemTemplate1}" ItemsSource="{Binding ListOfWorkers}" d:ItemsSource="{d:SampleData ItemCount=1024}" Grid.Column="1" />
+            </Grid>
+        </Grid>   
+</UserControl>

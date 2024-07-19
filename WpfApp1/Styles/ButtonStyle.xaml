@@ -33,9 +33,47 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    <Style x:Key="menuButtonIcon" TargetType="fp:IconImage">
+    <Style x:Key="CraudButton" TargetType="Button">
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Margin" Value="-5,0,0,5"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{StaticResource plainTextColor3}"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                        BorderThickness="4,0,0,0"
+                        BorderBrush="{TemplateBinding BorderBrush}">
+                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Margin" Value="0,0,0,5"/>
+                <Setter Property="Foreground" Value="{StaticResource color3}"/>
+                <Setter Property="Background" Value="{StaticResource panelOverColor}"/>
+                <Setter Property="BorderBrush" Value="{Binding Path=Tag, RelativeSource={RelativeSource Self}}"/>
+            </Trigger>
+        </Style.Triggers>
+        </Style>
+        <Style x:Key="menuButtonIcon" TargetType="fp:IconImage">
         <Setter Property="Margin" Value="35,0,20,0"/>
         <Setter Property="Foreground" Value="{Binding Path=Tag, RelativeSource={RelativeSource AncestorType=RadioButton}}"/>
+        <Setter Property="Width" Value="22"/>
+        <Setter Property="Height" Value="22"/>
+    </Style>
+    <Style x:Key="menuButton2Icon" TargetType="fp:IconImage">
+        <Setter Property="Margin" Value="35,0,20,0"/>
+        <Setter Property="Foreground" Value="{Binding Path=Tag, RelativeSource={RelativeSource AncestorType=Button}}"/>
+        <Setter Property="Width" Value="22"/>
+        <Setter Property="Height" Value="22"/>
+    </Style>
+    <Style x:Key="menuBlockIcon" TargetType="fp:IconImage">
+        <Setter Property="Margin" Value="35,0,20,0"/>
+        <Setter Property="Foreground" Value="{Binding Path=Tag, RelativeSource={RelativeSource AncestorType=TextBlock}}"/>
         <Setter Property="Width" Value="22"/>
         <Setter Property="Height" Value="22"/>
     </Style>
@@ -45,6 +83,20 @@
         <Setter Property="FontSize" Value="13.5"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="FontWeight" Value="Medium"/>
+    </Style>
+    <Style x:Key="menuButton2Text" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Montserret"/>
+        <Setter Property="Foreground" Value="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType=Button}}"/>
+        <Setter Property="FontSize" Value="13.5"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+    </Style>
+    <Style x:Key="menuBlockText" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Montserret"/>
+        <Setter Property="Foreground" Value="{Binding Path=Tag, RelativeSource={RelativeSource AncestorType=TextBlock}}"/>
+        <Setter Property="FontSize" Value="22"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontWeight" Value="Bold"/>
     </Style>
     <Style x:Key="IconButton" TargetType="Button">
         <Setter Property="Cursor" Value="Hand"/>

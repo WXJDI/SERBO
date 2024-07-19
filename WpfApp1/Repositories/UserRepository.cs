@@ -48,7 +48,7 @@ namespace WpfApp1.Repositories
             throw new NotImplementedException();
         }
 
-        public IEnumerable<UserModel> GetByAll()
+        public List<UserModel> GetByAll()
         {
             throw new NotImplementedException();
         }
@@ -74,12 +74,14 @@ namespace WpfApp1.Repositories
                     {
                         user = new UserModel()
                         {
-                            Id = reader[0].ToString(),
+                            IdUser = reader[0].ToString(),
                             Username = reader[7].ToString(),
                             Password = string.Empty,
-                            Name = reader[1].ToString(),
-                            LastName = reader[2].ToString(),
+                            Name = reader[2].ToString(),
+                            LastName = reader[1].ToString(),
                             Email = reader[4].ToString(),
+                            NumTel = reader[5].ToString(),
+                            Cin = reader[3].ToString(),
                             IsAdmin = false,
                             IsWorker = true
                         };
@@ -92,14 +94,16 @@ namespace WpfApp1.Repositories
                     {
                         user = new UserModel()
                         {
-                            Id = reader[0].ToString(),
+                            IdUser = reader[0].ToString(),
                             Username = reader[7].ToString(),
                             Password = string.Empty,
-                            Name = reader[1].ToString(),
-                            LastName = reader[2].ToString(),
+                            Name = reader[2].ToString(),
+                            LastName = reader[1].ToString(),
                             Email = reader[4].ToString(),
-                            IsAdmin = true,
-                            IsWorker = false
+                            NumTel = reader[5].ToString(),
+                            Cin = reader[3].ToString(),
+                            IsAdmin = false,
+                            IsWorker = true
                         };
                     }
                 }

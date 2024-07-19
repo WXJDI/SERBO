@@ -29,7 +29,7 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="250"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1050"/>
             </Grid.ColumnDefinitions>
             <Border Grid.Column="0" CornerRadius="10,0,0,10">
                 <Border.Background>
@@ -51,8 +51,9 @@
                                    VerticalAlignment="Center"
                                    Margin="10,0,0,0"/>
                     </StackPanel>
-                    <RadioButton Style="{StaticResource menuButton }"
-                                 Tag="{StaticResource color1}">
+                    <RadioButton Command="{Binding }"
+                                 Style="{StaticResource menuButton }"
+                                 Tag="{StaticResource color1}" >
                         <StackPanel Orientation="Horizontal">
                             <fp:IconImage Icon="Home" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="DashBoard" Style="{StaticResource menuButtonText}"/>
@@ -61,22 +62,22 @@
                     <RadioButton Style="{StaticResource menuButton }"
              Tag="{StaticResource color2}">
                         <StackPanel Orientation="Horizontal">
-                            <fp:IconImage Icon="UserGroup" Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="Workers" Style="{StaticResource menuButtonText}"/>
-                        </StackPanel>
-                    </RadioButton>
-                    <RadioButton Style="{StaticResource menuButton }"
-             Tag="{StaticResource color3}">
-                        <StackPanel Orientation="Horizontal">
                             <fp:IconImage Icon="Truck" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Orders" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
-                    <RadioButton Style="{StaticResource menuButton }"
-             Tag="{StaticResource color4}">
+                    <RadioButton Checked="RadioButton_Checked"  Style="{StaticResource menuButton }"
+             Tag="{StaticResource color3}">
                         <StackPanel Orientation="Horizontal">
-                            <fp:IconImage Icon="ShoppingBag" Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="Transaction" Style="{StaticResource menuButtonText}"/>
+                            <fp:IconImage Icon="Briefcase" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Workers" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Checked="RadioButton2_Checked" Style="{StaticResource menuButton }"
+Tag="{StaticResource color4}">
+                        <StackPanel Orientation="Horizontal">
+                            <fp:IconImage Icon="UserGroup" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Clients" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
                     <RadioButton Style="{StaticResource menuButton }"
@@ -84,27 +85,6 @@
                         <StackPanel Orientation="Horizontal">
                             <fp:IconImage Icon="Box" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Stock" Style="{StaticResource menuButtonText}"/>
-                        </StackPanel>
-                    </RadioButton>
-                    <RadioButton Style="{StaticResource menuButton }"
-             Tag="{StaticResource color6}">
-                        <StackPanel Orientation="Horizontal">
-                            <fp:IconImage Icon="Wallet" Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="Financial" Style="{StaticResource menuButtonText}"/>
-                        </StackPanel>
-                    </RadioButton>
-                    <RadioButton Style="{StaticResource menuButton }"
-Tag="{StaticResource color7}">
-                        <StackPanel Orientation="Horizontal">
-                            <fp:IconImage Icon="PieChart" Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="Report" Style="{StaticResource menuButtonText}"/>
-                        </StackPanel>
-                    </RadioButton>
-                    <RadioButton Style="{StaticResource menuButton }"
-Tag="{StaticResource color8}">
-                        <StackPanel Orientation="Horizontal">
-                            <fp:IconImage Icon="Tools" Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="Settings" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
                 </StackPanel>
@@ -120,7 +100,7 @@ Tag="{StaticResource color8}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30"/>
                         <RowDefinition Height="80"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="590"/>
                     </Grid.RowDefinitions>
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -270,7 +250,7 @@ Background="{TemplateBinding Background}">
 
                         </StackPanel>
                     </Grid>
-                    <Grid Grid.Row="2">
+                    <Grid x:Name="grcontent" Grid.Row="2">
                         <StackPanel Margin="0,200,0,0">
                             <StackPanel Orientation="Horizontal"
                                         HorizontalAlignment="Center">

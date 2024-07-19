@@ -50,5 +50,19 @@ namespace WpfApp1.Views
                 WindowStyle = WindowStyle.None;
             }
         }
+
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            Views.UCs.UCWorkers wrkersControle = new UCs.UCWorkers();
+            grcontent.Children.Add(wrkersControle);
+
+        }
+        private void RadioButton2_Checked(object sender, RoutedEventArgs e)
+        {
+            Views.UCs.UCClients clientscontrole = new UCs.UCClients();
+            
+            grcontent.Children.Add(clientscontrole);
+
+        }
     }
 }

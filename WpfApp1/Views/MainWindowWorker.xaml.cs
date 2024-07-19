@@ -50,10 +50,5 @@ namespace WpfApp1.Views
                 WindowStyle = WindowStyle.None;
             }
         }
-
-        private void RadioButton_Checked()
-        {
-
-        }
     }
 }

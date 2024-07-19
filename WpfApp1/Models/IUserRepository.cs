@@ -17,6 +17,6 @@ namespace WpfApp1.Models
         string GetUserRole(string username);
         UserModel GetByID(int id);
         UserModel GetByUsername(string username);
-        IEnumerable<UserModel> GetByAll();
+        List<UserModel> GetByAll();
     }
 }

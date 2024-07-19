@@ -15,17 +15,17 @@
     <Window.DataContext>
         <viewModel:MainViewModelWorker/>
     </Window.DataContext>
-
+  
     <Border CornerRadius="50"
         BorderThickness="1"
             Opacity="0.95">
-        <Border.BorderBrush>
-            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                <GradientStop Color="{StaticResource winBorderColor1}" Offset="0"/>
-                <GradientStop Color="{StaticResource winBorderColor2}" Offset="0.5"/>
-                <GradientStop Color="{StaticResource winBorderColor3}" Offset="1"/>
-            </LinearGradientBrush>
-        </Border.BorderBrush>
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="{StaticResource winBorderColor1}" Offset="0"/>
+                    <GradientStop Color="{StaticResource winBorderColor2}" Offset="0.5"/>
+                    <GradientStop Color="{StaticResource winBorderColor3}" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="250"/>
@@ -294,7 +294,7 @@ Background="{TemplateBinding Background}">
                                             FontWeight="Medium"
                                             FontFamily="Montserret"
                                             HorizontalAlignment="Center"/>
-                                <TextBlock Text="   B"
+                                <TextBlock Text="   S"
        
                                             Foreground="{StaticResource color2}"
                                             FontSize="50"
@@ -312,7 +312,7 @@ Background="{TemplateBinding Background}">
                             <StackPanel Orientation="Horizontal"
                                         Margin="0,50,0,0"
             HorizontalAlignment="Center">
-                                <TextBlock Text="marhbaaa  "
+                                <TextBlock Text="Welcome "
            
         Foreground="{StaticResource color1}"
         FontSize="30"
