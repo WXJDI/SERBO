@@ -294,7 +294,7 @@ Background="{TemplateBinding Background}">
                                             FontWeight="Medium"
                                             FontFamily="Montserret"
                                             HorizontalAlignment="Center"/>
-                                <TextBlock Text="   K"
+                                <TextBlock Text="   B"
        
                                             Foreground="{StaticResource color2}"
                                             FontSize="50"
