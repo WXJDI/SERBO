@@ -312,7 +312,7 @@ Background="{TemplateBinding Background}">
                             <StackPanel Orientation="Horizontal"
                                         Margin="0,50,0,0"
             HorizontalAlignment="Center">
-                                <TextBlock Text="Welcome "
+                                <TextBlock Text="marhbaaa  "
            
         Foreground="{StaticResource color1}"
         FontSize="30"
