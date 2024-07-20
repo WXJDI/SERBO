@@ -37,7 +37,7 @@ namespace WpfApp1.Repositories
                 command.CommandText = @"
                     SET IDENTITY_INSERT [USER] ON;
                     INSERT INTO [USER]
-                    (IDUSER,PRENOM, NOM, CIN, ADRESSMAIL, NUMTEL) 
+                    (IDUSER,NAME, LASTNAME, CIN, ADRESSMAIL, NUMTEL) 
                     VALUES 
                     (@IdWorker,@Name, @LastName, @Cin, @Email, @NumTel);
                     SET IDENTITY_INSERT [USER] ON;";
@@ -57,7 +57,7 @@ namespace WpfApp1.Repositories
                     command.Connection = connection;
                     command.CommandText = @"
                     INSERT INTO [WORKER] 
-                    (IDUSER,PRENOM, NOM, CIN, ADRESSMAIL, NUMTEL, Password, Username) 
+                    (IDUSER,NAME, LASTNAME, CIN, ADRESSMAIL, NUMTEL, Password, Username) 
                     VALUES 
                     (@IdWorker,@Name, @LastName, @Cin, @Email, @NumTel, @Password, @Username)";
                     command.Parameters.Add("@IdWorker", SqlDbType.NVarChar).Value = worker.IdWorker;
@@ -82,8 +82,8 @@ namespace WpfApp1.Repositories
                 command.Connection = connection;
                 command.CommandText = @"
                     UPDATE [WORKER]
-                    SET PRENOM = @Name,
-                        NOM = @LastName,
+                    SET NAME = @Name,
+                        LASTNAME = @LastName,
                         CIN = @Cin,
                         ADRESSMAIL = @Email,
                         NUMTEL = @NumTel,
