@@ -106,16 +106,25 @@
       <DependentUpon>BindablePasswordBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\AdminModule.cs" />
+    <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\ClientModel.cs" />
     <Compile Include="Models\IAdminRepository.cs" />
+    <Compile Include="Models\ICategoryRepository.cs" />
     <Compile Include="Models\IClientRepository.cs" />
+    <Compile Include="Models\IOrderRepository.cs" />
+    <Compile Include="Models\IProductModel.cs" />
     <Compile Include="Models\IUserRepository.cs" />
     <Compile Include="Models\IWorkerRepository.cs" />
+    <Compile Include="Models\OrderModel.cs" />
+    <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Models\UserAccountModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\WorkerModel.cs" />
     <Compile Include="Repositories\AdminRepository.cs" />
+    <Compile Include="Repositories\CategoryRepository.cs" />
     <Compile Include="Repositories\ClientRepository.cs" />
+    <Compile Include="Repositories\OrderRepository.cs" />
+    <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Repositories\WorkerRepository.cs" />
@@ -124,11 +133,19 @@
     <Compile Include="ViewModels\MainViewModelWorker.cs" />
     <Compile Include="ViewModels\MainWindowModelAdmin.cs" />
     <Compile Include="ViewModels\UCBusiness\UCClientsBusiness.cs" />
+    <Compile Include="ViewModels\UCBusiness\UCOrdersBusiness.cs" />
+    <Compile Include="ViewModels\UCBusiness\UCStockBusiness.cs" />
     <Compile Include="ViewModels\UCBusiness\UCWorkersBusiness.cs" />
     <Compile Include="ViewModels\ViewModelCommand.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\DataEntry\ClientDataEntry.xaml.cs">
       <DependentUpon>ClientDataEntry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DataEntry\OrderDataEntry.xaml.cs">
+      <DependentUpon>OrderDataEntry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DataEntry\ProductDataEntry.xaml.cs">
+      <DependentUpon>ProductDataEntry.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DataEntry\WorkerDataEntry.xaml.cs">
       <DependentUpon>WorkerDataEntry.xaml</DependentUpon>
@@ -138,6 +155,12 @@
     </Compile>
     <Compile Include="Views\UCs\UCClients.xaml.cs">
       <DependentUpon>UCClients.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UCs\UCOrders.xaml.cs">
+      <DependentUpon>UCOrders.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UCs\UCStock.xaml.cs">
+      <DependentUpon>UCStock.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UCs\UCWorkers.xaml.cs">
       <DependentUpon>UCWorkers.xaml</DependentUpon>
@@ -155,6 +178,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DataEntry\ClientDataEntry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DataEntry\OrderDataEntry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DataEntry\ProductDataEntry.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -186,6 +217,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UCs\UCClients.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UCs\UCOrders.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UCs\UCStock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -254,6 +293,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>db-local.mdf</DependentUpon>
     </Content>
+    <Resource Include="Images\search-icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.5.1.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.5.1.0\build\MaterialDesignThemes.targets')" />

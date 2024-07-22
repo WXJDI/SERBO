@@ -13,20 +13,21 @@ using WpfApp1.Views.DataEntry;
 
 namespace WpfApp1.ViewModels.UCBusiness
 {
-    public class UCClientsBusiness : INotifyPropertyChanged
+
+    public class UCStockBusiness : INotifyPropertyChanged
     {
         public bool ToSave { get; set; }
         private string _searchName;
-        private ObservableCollection<ClientModel> _listOfClients;
-        private ObservableCollection<ClientModel> _filteredClients;
-        private ClientRepository _clientRepository;
-        private ClientModel _selectedClient;
+        private ObservableCollection<ProductModel> _listOfProducts;
+        private ObservableCollection<ProductModel> _filteredProducts;
+        private ProductRepository _productRepository;
+        private ProductModel _selectedProduct;
 
-        public UCClientsBusiness()
+        public UCStockBusiness()
         {
-            _clientRepository = new ClientRepository();
-            _listOfClients = new ObservableCollection<ClientModel>(_clientRepository.GetByAll());
-            _filteredClients = new ObservableCollection<ClientModel>(_listOfClients);
+            _productRepository = new ProductRepository();
+            _listOfProducts = new ObservableCollection<ProductModel>(_productRepository.GetByAll());
+            _filteredProducts = new ObservableCollection<ProductModel>(_listOfProducts);
             AddCommand = new ViewModelCommand(AddProduct, CanExecuteCommand);
             EditCommand = new ViewModelCommand(EditProduct, CanExecuteCommand);
             DeleteCommand = new ViewModelCommand(DeleteProduct, CanExecuteCommand);
@@ -44,23 +45,23 @@ namespace WpfApp1.ViewModels.UCBusiness
             }
         }
 
-        public ObservableCollection<ClientModel> ListOfClients
+        public ObservableCollection<ProductModel> ListOfProducts
         {
-            get => _filteredClients;
+            get => _filteredProducts;
             set
             {
-                _filteredClients = value;
-                OnPropertyChanged(nameof(ListOfClients));
+                _filteredProducts = value;
+                OnPropertyChanged(nameof(ListOfProducts));
             }
         }
 
-        public ClientModel SelectedClient
+        public ProductModel SelectedProduct
         {
-            get => _selectedClient;
+            get => _selectedProduct;
             set
             {
-                _selectedClient = value;
-                OnPropertyChanged(nameof(SelectedClient));
+                _selectedProduct = value;
+                OnPropertyChanged(nameof(SelectedProduct));
             }
         }
 
@@ -69,40 +70,40 @@ namespace WpfApp1.ViewModels.UCBusiness
         public ICommand DeleteCommand { get; set; }
         public ICommand SaveCommand { get; set; }
 
-        Views.DataEntry.ClientDataEntry clientDataEntry;
         private void FilterProducts()
         {
             if (string.IsNullOrEmpty(_searchName))
             {
-                ListOfClients = new ObservableCollection<ClientModel>(_clientRepository.GetByAll());
+                ListOfProducts = new ObservableCollection<ProductModel>(_productRepository.GetByAll());
             }
             else
             {
-                ListOfClients = new ObservableCollection<ClientModel>(
-                    _clientRepository.GetByAll().Where(p => p.Name.ToLower().Contains(_searchName.ToLower())));
+                ListOfProducts = new ObservableCollection<ProductModel>(
+                    _productRepository.GetByAll().Where(p => p.Name.ToLower().Contains(_searchName.ToLower())));
             }
         }
+        Views.DataEntry.ProductDataEntry productDataEntry;
         private void AddProduct(object obj)
         {
             ToSave = true;
-            _selectedClient = new ClientModel();
+            _selectedProduct = new ProductModel();
 
-            clientDataEntry = new ClientDataEntry();
-            clientDataEntry.DataContext = this;
+            productDataEntry = new ProductDataEntry();
+            productDataEntry.DataContext = this;
 
-            clientDataEntry.ShowDialog();
+            productDataEntry.ShowDialog();
         }
 
         private void EditProduct(object obj)
         {
-            if (_selectedClient != null)
+            if (_selectedProduct != null)
             {
                 ToSave = false;
 
-                clientDataEntry = new ClientDataEntry();
-                clientDataEntry.DataContext = this;
+                productDataEntry = new ProductDataEntry();
+                productDataEntry.DataContext = this;
 
-                clientDataEntry.ShowDialog();
+                productDataEntry.ShowDialog();
             }
             else
             {
@@ -112,9 +113,9 @@ namespace WpfApp1.ViewModels.UCBusiness
 
         private void DeleteProduct(object obj)
         {
-            if (_selectedClient != null)
+            if (_selectedProduct != null)
             {
-                _clientRepository.Delete(_selectedClient);
+                _productRepository.Delete(_selectedProduct);
                 RefreshProductList();
             }
             else
@@ -127,22 +128,21 @@ namespace WpfApp1.ViewModels.UCBusiness
         {
             if (ToSave)
             {
-                _clientRepository.Add(_selectedClient);
+                _productRepository.Add(_selectedProduct);
             }
             else
             {
-                _clientRepository.Update(_selectedClient);
+                _productRepository.Update(_selectedProduct);
             }
-
-            clientDataEntry.Close();
+            productDataEntry.Close();
 
             RefreshProductList();
         }
 
         private void RefreshProductList()
         {
-            var clients = _clientRepository.GetByAll();
-            ListOfClients = new ObservableCollection<ClientModel>(clients);
+            var products = _productRepository.GetByAll();
+            ListOfProducts = new ObservableCollection<ProductModel>(products);
         }
 
         private bool CanExecuteCommand(object obj)
@@ -157,4 +157,5 @@ namespace WpfApp1.ViewModels.UCBusiness
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
+
 }

@@ -16,18 +16,13 @@ using System.Windows.Shapes;
 namespace WpfApp1.Views.UCs
 {
     /// <summary>
-    /// Logique d'interaction pour UCClients.xaml
+    /// Logique d'interaction pour UCOrders.xaml
     /// </summary>
-    public partial class UCClients : UserControl
+    public partial class UCOrders : UserControl
     {
-        public UCClients()
+        public UCOrders()
         {
             InitializeComponent();
-        }
-
-        private void txtUser_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
     }
 }

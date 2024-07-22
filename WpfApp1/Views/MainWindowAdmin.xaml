@@ -60,7 +60,7 @@
                         </StackPanel>
                     </RadioButton>
                     <RadioButton Style="{StaticResource menuButton }"
-             Tag="{StaticResource color2}">
+             Tag="{StaticResource color2}" Checked="RadioButton_Checked_2">
                         <StackPanel Orientation="Horizontal">
                             <fp:IconImage Icon="Truck" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Orders" Style="{StaticResource menuButtonText}"/>
@@ -81,7 +81,7 @@ Tag="{StaticResource color4}">
                         </StackPanel>
                     </RadioButton>
                     <RadioButton Style="{StaticResource menuButton }"
-             Tag="{StaticResource color5}">
+             Tag="{StaticResource color5}" Checked="RadioButton_Checked_1">
                         <StackPanel Orientation="Horizontal">
                             <fp:IconImage Icon="Box" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Stock" Style="{StaticResource menuButtonText}"/>

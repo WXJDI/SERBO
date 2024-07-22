@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WpfApp1.Views.DataEntry"
         xmlns:Uccb="clr-namespace:WpfApp1.ViewModels.UCBusiness"
         mc:Ignorable="d"
-        Title="WINDOW WORKER DATA ENTRY" Height="700" Width="448">
+        Title="WINDOW WORKER DATA ENTRY" Background="{StaticResource titleColor3}" Height="700" Width="448">
     <Window.DataContext>
         <Uccb:UCWorkersBusiness/>
     </Window.DataContext>
@@ -25,18 +25,18 @@
             <RowDefinition Height="70"/>
             <RowDefinition Height="70"/>
         </Grid.RowDefinitions>
-        <TextBox HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Worker.LastName}" VerticalAlignment="Center" Width="177" Height="42" TextChanged="TextBox_TextChanged" FontSize="15" Grid.Row="0" Margin="224,0,0,0"/>
-        <TextBox HorizontalAlignment="Left" Margin="224,0,0,0" TextWrapping="Wrap" Text="{Binding Worker.Name}" VerticalAlignment="Center" Width="177" Height="40" TextChanged="TextBox_TextChanged" Grid.Row="1" FontSize="15"/>
-        <TextBox HorizontalAlignment="Left" Margin="224,0,0,0" TextWrapping="Wrap" Text="{Binding Worker.Cin}" VerticalAlignment="Center" Width="177" Height="42" TextChanged="TextBox_TextChanged" FontSize="15" Grid.Row="2"/>
-        <TextBox HorizontalAlignment="Left" Margin="224,0,0,0" TextWrapping="Wrap" Text="{Binding Worker.Date}" VerticalAlignment="Center" Width="178" Height="42" TextChanged="TextBox_TextChanged" FontSize="15" Grid.Row="3"/>
+        <TextBox HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding SelectedWorker.LastName}" VerticalAlignment="Center" Width="177" Height="42" TextChanged="TextBox_TextChanged" FontSize="15" Grid.Row="0" Margin="224,0,0,0"/>
+        <TextBox HorizontalAlignment="Left" Margin="224,0,0,0" TextWrapping="Wrap" Text="{Binding SelectedWorker.Name}" VerticalAlignment="Center" Width="177" Height="40" TextChanged="TextBox_TextChanged" Grid.Row="1" FontSize="15"/>
+        <TextBox HorizontalAlignment="Left" Margin="224,0,0,0" TextWrapping="Wrap" Text="{Binding SelectedWorker.Cin}" VerticalAlignment="Center" Width="177" Height="42" TextChanged="TextBox_TextChanged" FontSize="15" Grid.Row="2"/>
+        <TextBox HorizontalAlignment="Left" Margin="224,0,0,0" TextWrapping="Wrap" Text="{Binding SelectedWorker.Date}" VerticalAlignment="Center" Width="178" Height="42" TextChanged="TextBox_TextChanged" FontSize="15" Grid.Row="3"/>
         <Label Content="- Nom de worker : " HorizontalAlignment="Left" Margin="30,0,0,0" Grid.Row="0" VerticalAlignment="Center" Height="42" Width="189" FontSize="18" FontWeight="Bold"/>
         <Label Content="- Prenom de worker : " HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" VerticalAlignment="Center" Height="40" Width="209" FontSize="18" FontWeight="Bold"/>
         <Label Content="- Le CIN de worker : " HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="2" VerticalAlignment="Center" Height="42" Width="199" FontSize="18" FontWeight="Bold"/>
         <Label Content="- Le date de worker : " HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="3" VerticalAlignment="Center" Height="42" Width="209" FontSize="18" FontWeight="Bold"/>
-        <TextBox HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Worker.Email}" VerticalAlignment="Center" Width="177" Height="42" TextChanged="TextBox_TextChanged" FontSize="15" Grid.Row="4" Margin="224,0,0,0"/>
-        <TextBox HorizontalAlignment="Left" Margin="224,0,0,0" TextWrapping="Wrap" Text="{Binding Worker.NumTel}" VerticalAlignment="Center" Width="177" Height="40" TextChanged="TextBox_TextChanged" Grid.Row="5" FontSize="15"/>
-        <TextBox HorizontalAlignment="Left" Margin="224,0,0,0" TextWrapping="Wrap" Text="{Binding Worker.Password}" VerticalAlignment="Center" Width="177" Height="42" TextChanged="TextBox_TextChanged" FontSize="15" Grid.Row="6"/>
-        <TextBox HorizontalAlignment="Left" Margin="224,0,0,0" TextWrapping="Wrap" Text="{Binding Worker.Username}" VerticalAlignment="Center" Width="178" Height="42" TextChanged="TextBox_TextChanged" FontSize="15" Grid.Row="7"/>
+        <TextBox HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding SelectedWorker.Email}" VerticalAlignment="Center" Width="177" Height="42" TextChanged="TextBox_TextChanged" FontSize="15" Grid.Row="4" Margin="224,0,0,0"/>
+        <TextBox HorizontalAlignment="Left" Margin="224,0,0,0" TextWrapping="Wrap" Text="{Binding SelectedWorker.NumTel}" VerticalAlignment="Center" Width="177" Height="40" TextChanged="TextBox_TextChanged" Grid.Row="5" FontSize="15"/>
+        <TextBox HorizontalAlignment="Left" Margin="224,0,0,0" TextWrapping="Wrap" Text="{Binding SelectedWorker.Password}" VerticalAlignment="Center" Width="177" Height="42" TextChanged="TextBox_TextChanged" FontSize="15" Grid.Row="6"/>
+        <TextBox HorizontalAlignment="Left" Margin="224,0,0,0" TextWrapping="Wrap" Text="{Binding SelectedWorker.Username}" VerticalAlignment="Center" Width="178" Height="42" TextChanged="TextBox_TextChanged" FontSize="15" Grid.Row="7"/>
         <Label Content="- Email de worker : " HorizontalAlignment="Left" Margin="30,0,0,0" Grid.Row="4" VerticalAlignment="Center" Height="42" Width="189" FontSize="18" FontWeight="Bold"/>
         <Label Content="- TEL de worker : " HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="5" VerticalAlignment="Center" Height="40" Width="209" FontSize="18" FontWeight="Bold"/>
         <Label Content="- Password de worker : " HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="6" VerticalAlignment="Center" Height="42" Width="199" FontSize="18" FontWeight="Bold"/>
