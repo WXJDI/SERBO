@@ -105,8 +105,8 @@ namespace WpfApp1.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT FROM [COMMAND] WHERE IdCommand = @id";
-                command.Parameters.Add("@IdProduct", SqlDbType.NVarChar).Value = id;
+                command.CommandText = "SELECT * FROM [COMMAND] WHERE IdCommand = @id";
+                command.Parameters.Add("@id", SqlDbType.NVarChar).Value = id;
                 using (var reader = command.ExecuteReader())
                 {
                     if (reader.Read())

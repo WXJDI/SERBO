@@ -72,14 +72,24 @@ namespace WpfApp1.ViewModels.UCBusiness
             get => _selectedOrder;
             set
             {
-                _selectedOrder = value;
-                for(int i=0;i<SelectedOrder.IdProducts.Count;i++)
+                if (value!= _selectedOrder)
                 {
-                    ProductModel productModel = new ProductModel();
+                        _selectedOrder = value;
+                        _listOfProducts = new ObservableCollection<ProductModel>();
+                        for (int i=0;i<SelectedOrder.IdProducts.Count;i++)
+                        {
+                            ProductModel productModel = new ProductModel();
 
-                    productModel = _productRepository.GetByID(SelectedOrder.IdProducts[i]);
+                            productModel = _productRepository.GetByID(SelectedOrder.IdProducts[i]);
+                            if (productModel != null)
+                            {
+                                _listOfProducts.Add(productModel);
+                            }
+                            
+                        }
                 }
-                _listOfProducts = new ObservableCollection<ProductModel>(_orderRepository.GetProducts(_selectedOrder));
+                
+                OnPropertyChanged(nameof(ListOfProducts));
                 OnPropertyChanged(nameof(SelectedOrder));
             }
         }

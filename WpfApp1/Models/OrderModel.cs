@@ -19,5 +19,11 @@ namespace WpfApp1.Models
         public int NomberProduct { get; set; }
 
         public float TotalPrice { get; set; }
+
+        public OrderModel()
+        {
+            IdProducts = new List<int>();
+        }
+
     }
 }
