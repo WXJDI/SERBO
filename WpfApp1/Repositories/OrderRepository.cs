@@ -10,7 +10,7 @@ using System.Windows.Controls;
 
 namespace WpfApp1.Repositories
 {
-    public class OrderRepository : RepositoryBase , IOrderRepository
+    public class OrderRepository : RepositoryBase ,     IOrderRepository
     {
         public void Add(OrderModel order)
         {
