@@ -160,7 +160,7 @@ Tag="{StaticResource color9}" Margin="0,20,0,0">
                         <ColumnDefinition Width="380"/>
                     </Grid.ColumnDefinitions>
                     <ListBox Grid.Column="0" HorizontalAlignment="Left" Background="#0A0031"  BorderBrush="Blue" SelectedItem="{Binding SelectedOrder}" ItemTemplate="{DynamicResource ListBoxItemTemplate1}" ItemsSource="{Binding ListOfOrders}" d:ItemsSource="{d:SampleData ItemCount=1024}" />
-                    <ListBox Grid.Column="1" HorizontalAlignment="Left" Background="#0A0031"  BorderBrush="Blue" SelectedItem="{Binding SelectedProduct}" ItemTemplate="{DynamicResource ListBoxItemTemplate2}" ItemsSource="{Binding ListOfProducts}" d:ItemsSource="{d:SampleData ItemCount=1024}" />
+                    <ListBox Grid.Column="1" HorizontalAlignment="Left" Background="#0A0031"  BorderBrush="Blue" SelectedItem="{Binding SelectedProduct}" ItemTemplate="{DynamicResource ListBoxItemTemplate2}" ItemsSource="{Binding ListOfProducts , UpdateSourceTrigger=PropertyChanged}" d:ItemsSource="{d:SampleData ItemCount=1024}" />
                 </Grid>
                     
             </Grid>
