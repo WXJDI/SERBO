@@ -153,5 +153,9 @@ namespace WpfApp1.Repositories
             }
             return Wm;
         }
+        public List<ProductModel> GetProducts(OrderModel order)
+        {
+            return null;
+        }
     }
 }
