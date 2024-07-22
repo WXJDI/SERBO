@@ -40,7 +40,7 @@ namespace WpfApp1.Repositories
                     (IDUSER,NAME, LASTNAME, CIN, ADRESSMAIL, NUMTEL) 
                     VALUES 
                     (@IdWorker,@Name, @LastName, @Cin, @Email, @NumTel);
-                    SET IDENTITY_INSERT [USER] ON;";
+                    SET IDENTITY_INSERT [USER] OFF;";
                 command.Parameters.Add("@IdWorker", SqlDbType.NVarChar).Value = worker.IdWorker;
                 command.Parameters.Add("@Name", SqlDbType.NVarChar).Value = worker.Name;
                 command.Parameters.Add("@LastName", SqlDbType.NVarChar).Value = worker.LastName;
@@ -132,10 +132,10 @@ namespace WpfApp1.Repositories
                         WorkerModel worker = new WorkerModel()
                         {
                             IdWorker = int.Parse(reader[0].ToString()),
-                            Username = reader[7].ToString(),
+                            Username = reader[8].ToString(),
                             Password = string.Empty,
-                            Name = reader[1].ToString(),
-                            LastName = reader[2].ToString(),
+                            Name = reader[2].ToString(),
+                            LastName = reader[1].ToString(),
                             Email = reader[4].ToString(),
                             NumTel = reader[5].ToString(),
                             Cin = reader[3].ToString(),
@@ -153,7 +153,7 @@ namespace WpfApp1.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "DELETE FROM [WORKER] WHERE IdWorker = @id";
+                command.CommandText = "SELECT FROM [WORKER] WHERE IdUSER = @idWorker";
                 command.Parameters.Add("@idWorker", SqlDbType.NVarChar).Value = id;
                 using (var reader = command.ExecuteReader())
                 {
@@ -162,10 +162,10 @@ namespace WpfApp1.Repositories
                         WorkerModel worker = new WorkerModel()
                         {
                             IdWorker = int.Parse(reader[0].ToString()),
-                            Username = reader[7].ToString(),
+                            Username = reader[8].ToString(),
                             Password = string.Empty,
-                            Name = reader[1].ToString(),
-                            LastName = reader[2].ToString(),
+                            Name = reader[2].ToString(),
+                            LastName = reader[1].ToString(),
                             Email = reader[4].ToString(),
                             NumTel = reader[5].ToString(),
                             Cin = reader[3].ToString(),
@@ -193,10 +193,10 @@ namespace WpfApp1.Repositories
                         worker = new WorkerModel()
                         {
                             IdWorker = int.Parse(reader[0].ToString()),
-                            Username = reader[7].ToString(),
+                            Username = reader[8].ToString(),
                             Password = string.Empty,
-                            Name = reader[1].ToString(),
-                            LastName = reader[2].ToString(),
+                            Name = reader[2].ToString(),
+                            LastName = reader[1].ToString(),
                             Email = reader[4].ToString(),
                             NumTel = reader[5].ToString(),
                             Cin = reader[3].ToString(),

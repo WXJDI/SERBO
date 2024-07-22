@@ -122,8 +122,8 @@ namespace WpfApp1.Repositories
                         ClientModel client = new ClientModel()
                         {
                             IdClient = int.Parse(reader[0].ToString()),
-                            Name = reader[1].ToString(),
-                            LastName = reader[2].ToString(),
+                            Name = reader[2].ToString(),
+                            LastName = reader[1].ToString(),
                             Email = reader[4].ToString(),
                             NumTel = reader[5].ToString(),
                             Cin = reader[3].ToString(),
@@ -150,8 +150,8 @@ namespace WpfApp1.Repositories
                         ClientModel client = new ClientModel()
                         {
                             IdClient = int.Parse(reader[0].ToString()),
-                            Name = reader[1].ToString(),
-                            LastName = reader[2].ToString(),
+                            Name = reader[2].ToString(),
+                            LastName = reader[1].ToString(),
                             Email = reader[4].ToString(),
                             NumTel = reader[5].ToString(),
                             Cin = reader[3].ToString(),
@@ -179,8 +179,8 @@ namespace WpfApp1.Repositories
                         client = new ClientModel()
                         {
                             IdClient = int.Parse(reader[0].ToString()),
-                            Name = reader[1].ToString(),
-                            LastName = reader[2].ToString(),
+                            Name = reader[2].ToString(),
+                            LastName = reader[1].ToString(),
                             Email = reader[4].ToString(),
                             NumTel = reader[5].ToString(),
                             Cin = reader[3].ToString(),

@@ -10,24 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WpfApp1.Views.UCs
+namespace WpfApp1.Views.DataEntry
 {
     /// <summary>
-    /// Logique d'interaction pour UCClients.xaml
+    /// Logique d'interaction pour OrderDataEntry.xaml
     /// </summary>
-    public partial class UCClients : UserControl
+    public partial class OrderDataEntry : Window
     {
-        public UCClients()
+        public OrderDataEntry()
         {
             InitializeComponent();
-        }
-
-        private void txtUser_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
     }
 }

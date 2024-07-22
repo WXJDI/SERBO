@@ -12,21 +12,24 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp1.Repositories;
 
 namespace WpfApp1.Views.UCs
 {
     /// <summary>
-    /// Logique d'interaction pour UCClients.xaml
+    /// Logique d'interaction pour UCStock.xaml
     /// </summary>
-    public partial class UCClients : UserControl
+    public partial class UCStock : UserControl
     {
-        public UCClients()
+        public UCStock()
         {
             InitializeComponent();
         }
 
         private void txtUser_TextChanged(object sender, TextChangedEventArgs e)
         {
+            
+
 
         }
     }

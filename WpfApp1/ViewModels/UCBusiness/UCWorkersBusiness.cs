@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,119 +9,151 @@ using System.Windows;
 using System.Windows.Input;
 using WpfApp1.Models;
 using WpfApp1.Repositories;
+using WpfApp1.Views.DataEntry;
 
 namespace WpfApp1.ViewModels.UCBusiness
 {
-    public class UCWorkersBusiness : DependencyObject
+    public class UCWorkersBusiness : INotifyPropertyChanged
     {
-        private WorkerRepository workerRepository;
         public bool ToSave { get; set; }
-        public Models.WorkerModel Worker { get; set; }
+        private string _searchName;
+        private ObservableCollection<WorkerModel> _listOfWorkers;
+        private ObservableCollection<WorkerModel> _filteredWorkers;
+        private WorkerRepository _workerRepository;
+        private WorkerModel _selectedworker;
 
-        public List<Models.WorkerModel> ListOfWorkers
-        {
-            get { return (List<Models.WorkerModel>)GetValue(ListOfWorkersProperty); }
-            set { SetValue(ListOfWorkersProperty, value); }
-        }
-        public static readonly DependencyProperty ListOfWorkersProperty = DependencyProperty.Register("ListOfWorkers", typeof(List<Models.WorkerModel>), typeof(UCWorkersBusiness), new PropertyMetadata(null));
-        public ICommand AddCommand { get; set; }
-
-        public ICommand EditCommand { get; set; }
-
-        public ICommand DeleteCommand { get; set; }
-
-        public ICommand SaveCommand { get; set; }
         public UCWorkersBusiness()
         {
-            DeleteCommand = new ViewModelCommand(DeleteEtudiant, CanDeleteEtudiant);
-
-            EditCommand = new ViewModelCommand(EditEtudiant, CanEditEtudiant);
-
-            AddCommand = new ViewModelCommand(AddEtudiant, CanAddEtudiant);
-
-            SaveCommand = new ViewModelCommand(SaveEtudiant, CanSaveEtudiant);
-
-            workerRepository = new WorkerRepository();
-
-            ListOfWorkers = workerRepository.GetByAll();
+            _workerRepository = new WorkerRepository();
+            _listOfWorkers = new ObservableCollection<WorkerModel>(_workerRepository.GetByAll());
+            _filteredWorkers = new ObservableCollection<WorkerModel>(_listOfWorkers);
+            AddCommand = new ViewModelCommand(AddProduct, CanExecuteCommand);
+            EditCommand = new ViewModelCommand(EditProduct, CanExecuteCommand);
+            DeleteCommand = new ViewModelCommand(DeleteProduct, CanExecuteCommand);
+            SaveCommand = new ViewModelCommand(SaveProduct, CanExecuteCommand);
         }
-        private void DeleteEtudiant(object obj)
-        {
-            if (Worker != null)
-            {
-                workerRepository.Delete(Worker);
 
-                ListOfWorkers = workerRepository.GetByAll();
+        public string SearchName
+        {
+            get => _searchName;
+            set
+            {
+                _searchName = value;
+                OnPropertyChanged(nameof(SearchName));
+                FilterProducts();
+            }
+        }
+
+        public ObservableCollection<WorkerModel> ListOfWorkers
+        {
+            get => _filteredWorkers;
+            set
+            {
+                _filteredWorkers = value;
+                OnPropertyChanged(nameof(ListOfWorkers));
+            }
+        }
+
+        public WorkerModel SelectedWorker
+        {
+            get => _selectedworker;
+            set
+            {
+                _selectedworker = value;
+                OnPropertyChanged(nameof(SelectedWorker));
+            }
+        }
+
+        public ICommand AddCommand { get; set; }
+        public ICommand EditCommand { get; set; }
+        public ICommand DeleteCommand { get; set; }
+        public ICommand SaveCommand { get; set; }
+
+        private void FilterProducts()
+        {
+            if (string.IsNullOrEmpty(_searchName))
+            {
+                ListOfWorkers = new ObservableCollection<WorkerModel>(_workerRepository.GetByAll());
             }
             else
             {
-                System.Windows.MessageBox.Show("Please select a student !!! ");
+                ListOfWorkers = new ObservableCollection<WorkerModel>(
+                    _workerRepository.GetByAll().Where(p => p.Name.ToLower().Contains(_searchName.ToLower())));
             }
-
         }
-        private void EditEtudiant(object obj)
+        Views.DataEntry.WorkerDataEntry productDataEntry;
+        private void AddProduct(object obj)
         {
+            ToSave = true;
+            _selectedworker = new WorkerModel();
 
-            if (Worker != null)
+            productDataEntry = new WorkerDataEntry();
+            productDataEntry.DataContext = this;
+
+            productDataEntry.ShowDialog();
+        }
+
+        private void EditProduct(object obj)
+        {
+            if (_selectedworker != null)
             {
                 ToSave = false;
 
-                etudiantDataEntry = new Views.DataEntry.WorkerDataEntry();
+                productDataEntry = new WorkerDataEntry();
+                productDataEntry.DataContext = this;
 
-                etudiantDataEntry.DataContext = this;
-
-                etudiantDataEntry.ShowDialog();
+                productDataEntry.ShowDialog();
             }
             else
             {
-                System.Windows.MessageBox.Show("Please select a student !!! ");
+                System.Windows.MessageBox.Show("Please select a product!");
             }
-
         }
-        private bool CanDeleteEtudiant(object obj)
+
+        private void DeleteProduct(object obj)
         {
-            return true;
+            if (_selectedworker != null)
+            {
+                _workerRepository.Delete(_selectedworker);
+                RefreshProductList();
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("Please select a product!");
+            }
         }
-        private bool CanEditEtudiant(object obj)
-        {
-            return true;
-        }
-        private bool CanAddEtudiant(object obj)
-        {
-            return true;
-        }
-        public Views.DataEntry.WorkerDataEntry etudiantDataEntry;
-        private void AddEtudiant(object obj)
-        {
-            ToSave = true;
 
-            Worker = new WorkerModel();
-
-            etudiantDataEntry = new Views.DataEntry.WorkerDataEntry();
-
-            etudiantDataEntry.DataContext = this;
-
-            etudiantDataEntry.ShowDialog();
-
-        }
-        private void SaveEtudiant(object obj)
+        private void SaveProduct(object obj)
         {
             if (ToSave)
             {
-                workerRepository.Add(Worker);
+                _workerRepository.Add(_selectedworker);
             }
             else
             {
-                workerRepository.Update(Worker);
+                _workerRepository.Update(_selectedworker);
             }
+            productDataEntry.Close();
 
-            etudiantDataEntry.Close();
-
-            ListOfWorkers = workerRepository.GetByAll();
+            RefreshProductList();
         }
-        private bool CanSaveEtudiant(object obj)
+
+        private void RefreshProductList()
+        {
+            var products = _workerRepository.GetByAll();
+            ListOfWorkers = new ObservableCollection<WorkerModel>(products);
+        }
+
+        private bool CanExecuteCommand(object obj)
         {
             return true;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

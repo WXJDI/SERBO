@@ -64,5 +64,19 @@ namespace WpfApp1.Views
             grcontent.Children.Add(clientscontrole);
 
         }
+
+        private void RadioButton_Checked_1(object sender, RoutedEventArgs e)
+        {
+            Views.UCs.UCStock stockcontrole = new UCs.UCStock();
+
+            grcontent.Children.Add(stockcontrole);
+        }
+
+        private void RadioButton_Checked_2(object sender, RoutedEventArgs e)
+        {
+            Views.UCs.UCOrders Ordercontrole = new UCs.UCOrders();
+
+            grcontent.Children.Add(Ordercontrole);
+        }
     }
 }

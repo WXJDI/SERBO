@@ -24,6 +24,7 @@
                         <ColumnDefinition Width="125"/>
                         <ColumnDefinition Width="125"/>
                     </Grid.ColumnDefinitions>
+                    
                     <TextBlock Foreground="{StaticResource color3}" FontFamily="Montserret" FontWeight="Medium" FontSize="15" Grid.Column="0" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding IdClient}" VerticalAlignment="Center"/>
                     <TextBlock Foreground="{StaticResource color3}" FontFamily="Montserret" FontWeight="Medium" FontSize="15" Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding Cin}" VerticalAlignment="Center"/>
                     <TextBlock Foreground="{StaticResource color3}" FontFamily="Montserret" FontWeight="Medium" FontSize="15" Grid.Column="2" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Center"/>
@@ -54,6 +55,34 @@
                     <TextBlock Text="Clients" Style="{StaticResource menuBlockText}"/>
                 </StackPanel>
                 </TextBlock>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid>
+                    <TextBox x:Name="txtUser"
+                Text="{Binding SearchName, UpdateSourceTrigger=PropertyChanged}"
+                FontSize="13"
+                FontWeight="Medium"
+                FontFamily="Montserret"
+                 Foreground="White"
+                 CaretBrush="LightGray"
+                 BorderBrush="DarkGray"
+                 BorderThickness="0,0,0,2"
+                 Height="50"
+                 VerticalAlignment="Bottom"
+                 VerticalContentAlignment="Center"
+                 Margin="0,5,0,10"
+                 Padding="50,0,0,0" TextChanged="txtUser_TextChanged">
+                        <TextBox.Background>
+                            <ImageBrush ImageSource="/Images/search-icon.png"
+                            Stretch="Uniform"
+                            AlignmentX="Left"/>
+                        </TextBox.Background>
+                    </TextBox>
+                </Grid>
             </Grid>
         </Grid>
         <Grid Grid.Row="1">
@@ -86,7 +115,31 @@ Tag="{StaticResource color9}" Margin="0,20,0,0">
                     </StackPanel>
                 </Button>
             </StackPanel>
-            <ListBox Background="#0A0031"  BorderBrush="Blue" SelectedItem="{Binding client}" ItemTemplate="{DynamicResource ListBoxItemTemplate1}" ItemsSource="{Binding ListOfClients}" d:ItemsSource="{d:SampleData ItemCount=1024}" Grid.Column="1" />
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Margin="14,5,35,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="125"/>
+                        <ColumnDefinition Width="125"/>
+                        <ColumnDefinition Width="125"/>
+                        <ColumnDefinition Width="125"/>
+                        <ColumnDefinition Width="125"/>
+                        <ColumnDefinition Width="125"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Foreground="{StaticResource color3}" FontFamily="Montserret" FontWeight="Medium" FontSize="15" Grid.Column="0" HorizontalAlignment="Center" TextWrapping="Wrap" Text="IdClient" VerticalAlignment="Center"/>
+                    <TextBlock Foreground="{StaticResource color3}" FontFamily="Montserret" FontWeight="Medium" FontSize="15" Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Cin" VerticalAlignment="Center"/>
+                    <TextBlock Foreground="{StaticResource color3}" FontFamily="Montserret" FontWeight="Medium" FontSize="15" Grid.Column="2" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Name" VerticalAlignment="Center"/>
+                    <TextBlock Foreground="{StaticResource color3}" FontFamily="Montserret" FontWeight="Medium" FontSize="15" Grid.Column="3" HorizontalAlignment="Center" TextWrapping="Wrap" Text="LastName" VerticalAlignment="Center"/>
+                    <TextBlock Foreground="{StaticResource color3}" FontFamily="Montserret" FontWeight="Medium" FontSize="15" Grid.Column="4" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Email" VerticalAlignment="Center"/>
+                    <TextBlock Foreground="{StaticResource color3}" FontFamily="Montserret" FontWeight="Medium" FontSize="15" Grid.Column="5" HorizontalAlignment="Center" TextWrapping="Wrap" Text="NumTel" VerticalAlignment="Center"/>
+                </Grid>
+                <ListBox Grid.Row="1" Background="#0A0031"  BorderBrush="Blue" SelectedItem="{Binding SelectedClient}" ItemTemplate="{DynamicResource ListBoxItemTemplate1}" ItemsSource="{Binding ListOfClients}" d:ItemsSource="{d:SampleData ItemCount=1024}" Grid.Column="1" />
+            </Grid>
+            
         </Grid>
     </Grid>
 </UserControl>

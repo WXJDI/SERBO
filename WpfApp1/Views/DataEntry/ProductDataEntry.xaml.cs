@@ -10,24 +10,22 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WpfApp1.Views.UCs
+namespace WpfApp1.Views.DataEntry
 {
     /// <summary>
-    /// Logique d'interaction pour UCClients.xaml
+    /// Logique d'interaction pour ProductDataEntry.xaml
     /// </summary>
-    public partial class UCClients : UserControl
+    public partial class ProductDataEntry : Window
     {
-        public UCClients()
+        public ProductDataEntry()
         {
             InitializeComponent();
         }
-
-        private void txtUser_TextChanged(object sender, TextChangedEventArgs e)
+        private void TextBox_TextChanged(object sender, EventArgs e)
         {
-
+            
         }
     }
 }
