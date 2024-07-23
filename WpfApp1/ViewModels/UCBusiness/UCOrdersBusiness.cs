@@ -75,18 +75,10 @@ namespace WpfApp1.ViewModels.UCBusiness
                 if (value!= _selectedOrder)
                 {
                         _selectedOrder = value;
-                        _listOfProducts = new ObservableCollection<ProductModel>();
-                        for (int i=0;i<SelectedOrder.IdProducts.Count;i++)
-                        {
-                            ProductModel productModel = new ProductModel();
-
-                            productModel = _productRepository.GetByID(SelectedOrder.IdProducts[i]);
-                            if (productModel != null)
-                            {
-                                _listOfProducts.Add(productModel);
-                            }
-                            
-                        }
+                        if (_selectedOrder!= null)
+                            _listOfProducts = new ObservableCollection<ProductModel>(_orderRepository.GetByID(_selectedOrder.IdOrder).IdProducts);
+                        else
+                            _listOfProducts = null;
                 }
                 
                 OnPropertyChanged(nameof(ListOfProducts));
@@ -151,10 +143,16 @@ namespace WpfApp1.ViewModels.UCBusiness
 
         private void DeleteProduct(object obj)
         {
-            if (_selectedOrder != null)
+            if (_selectedOrder != null && _selectedProduct == null)
             {
                 _orderRepository.Delete(_selectedOrder);
-                RefreshProductList();
+                RefreshOrderList();
+                ListOfProducts = new ObservableCollection<ProductModel>();
+            }
+            if (_selectedOrder != null && _selectedProduct != null)
+            {
+                _orderRepository.DeleteProduct(_selectedProduct,_selectedOrder);
+                ListOfProducts = new ObservableCollection<ProductModel>(_orderRepository.GetByID(_selectedOrder.IdOrder).IdProducts);
             }
             else
             {
@@ -175,13 +173,12 @@ namespace WpfApp1.ViewModels.UCBusiness
 
             OrderDataEntry.Close();
 
-            RefreshProductList();
-        }
 
-        private void RefreshProductList()
+        }
+        private void RefreshOrderList()
         {
-            var clients = _orderRepository.GetByAll();
-            ListOfOrders = new ObservableCollection<OrderModel>(clients);
+            var orders = _orderRepository.GetByAll();
+            ListOfOrders = new ObservableCollection<OrderModel>(orders);
         }
 
         private bool CanExecuteCommand(object obj)

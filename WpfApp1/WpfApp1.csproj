@@ -293,6 +293,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>db-local.mdf</DependentUpon>
     </Content>
+    <Resource Include="Images\double-down.png" />
     <Resource Include="Images\search-icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

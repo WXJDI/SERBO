@@ -78,5 +78,6 @@ namespace WpfApp1.Views
 
             grcontent.Children.Add(Ordercontrole);
         }
+
     }
 }

@@ -28,25 +28,39 @@ namespace WpfApp1.Repositories
                     }
                 }
             }
+
             using (var connection = GetConnection())
             using (var command = new SqlCommand())
             {
                 connection.Open();
                 command.Connection = connection;
-                for (int i = 0; i < order.IdProducts.Count(); i++)
-                {
                     command.CommandText = @"
                     INSERT INTO [COMMAND]
-                    (IDPRODUCT,IDCLIENT, IDWORKER, IDCOMMAND, DATECOMMAND,TOTALPRICE) 
+                    (IDCOMMAND,IDCLIENT, IDWORKER, DATECOMMAND,TOTALPRICE) 
                     VALUES 
-                    (@IdProduct,@IdClient, @IdWorker, @IdCommand, @DateCommand,TotalPrice);";
-                    command.Parameters.Add("@IdProduct", SqlDbType.NVarChar).Value = order.IdProducts[i];
+                    (@IdCommand,@IdClient, @IdWorker,  @DateCommand,@TotalPrice);";
                     command.Parameters.Add("@IdClient", SqlDbType.NVarChar).Value = order.IdClient;
                     command.Parameters.Add("@IdWorker", SqlDbType.NVarChar).Value = order.IdWorker;
                     command.Parameters.Add("@IdCommand", SqlDbType.NVarChar).Value = order.IdOrder;
                     command.Parameters.Add("@DateCommand", SqlDbType.NVarChar).Value = order.DateOrder;
                     command.Parameters.Add("@TotalPrice", SqlDbType.NVarChar).Value = order.TotalPrice;
-
+                    command.ExecuteNonQuery();      
+            }
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                for(int i = 0;i<order.IdProducts.Count;i++)
+                {
+                    command.CommandText = @"
+                        INSERT INTO [PRODUCTCOMMAND]
+                        (IDPRODUCT, IDCOMMAND, QUANTITY) 
+                        VALUES 
+                        (@Idproduct, @Idcommand,  @Quantity);";
+                    command.Parameters.Add("@Idproduct", SqlDbType.NVarChar).Value = order.IdProducts[i].Id;
+                    command.Parameters.Add("@Idcommand", SqlDbType.NVarChar).Value = order.IdOrder;
+                    command.Parameters.Add("@Quantity", SqlDbType.NVarChar).Value = order.IdProducts[i].Quantite;
                     command.ExecuteNonQuery();
                 }
                 
@@ -59,18 +73,13 @@ namespace WpfApp1.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                for (int i = 0;i<order.IdProducts.Count();i++)
-                {
                     command.CommandText = @"
                     UPDATE [COMMAND]
-                    SET IDPRODUCT = @IdProduct ,
-                        IDCLIENT = @IdClient, 
+                    SET IDCLIENT = @IdClient, 
                         IDWORKER = @IdWorker,
                         DATECOMMAND = @DateCommand,
                         TOTALPRICE = @TotalPrice ,
                     WHERE IDCOMMAND = @IdCommand";
-
-                    command.Parameters.Add("@IdProduct", SqlDbType.NVarChar).Value = order.IdProducts[i];
                     command.Parameters.Add("@IdClient", SqlDbType.NVarChar).Value = order.IdClient;
                     command.Parameters.Add("@IdWorker", SqlDbType.NVarChar).Value = order.IdWorker;
                     command.Parameters.Add("@IdCommand", SqlDbType.NVarChar).Value = order.IdOrder;
@@ -78,8 +87,27 @@ namespace WpfApp1.Repositories
                     command.Parameters.Add("@TotalPrice", SqlDbType.NVarChar).Value = order.TotalPrice;
 
                     command.ExecuteNonQuery();
-                }
                 
+            }
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                for (int i = 0; i < order.IdProducts.Count(); i++)
+                {
+                    command.CommandText = @"
+                    UPDATE [PRODUCTCOMMAND]
+                    SET Quantite = @quantite,     
+                    WHERE IDPRODUCT = @idproduct
+                    AND IDCOMMAND = @IdCommand";
+                    command.Parameters.Add("@idproduct", SqlDbType.NVarChar).Value = order.IdProducts[i].Id;
+                    command.Parameters.Add("@quantite", SqlDbType.NVarChar).Value = order.IdProducts[i].Quantite;
+                    command.Parameters.Add("@IdCommand", SqlDbType.NVarChar).Value = order.IdOrder;
+
+                    command.ExecuteNonQuery();
+                }
+
             }
         }
         public void Delete(OrderModel order)
@@ -87,19 +115,31 @@ namespace WpfApp1.Repositories
             using (var connection = GetConnection())
             using (var command = new SqlCommand())
             {
-                for (int i = 0; i < order.IdProducts.Count(); i++)
-                {
-                    command.CommandText = "DELETE FROM [COMMAND] WHERE IDCOMMAND = @IdCommand";
-                    command.Parameters.Add("@IdCommand", SqlDbType.NVarChar).Value = order.IdOrder;           
-                    command.ExecuteNonQuery();
-                }
                 connection.Open();
                 command.Connection = connection;
+                for (int i = 0; i < order.IdProducts.Count(); i++)
+                {
+                    command.CommandText = "DELETE FROM [PRODUCTCOMMAND] WHERE IDCOMMAND = @IdCommand AND IDPRODUCT = @IdProduct ";
+                    command.Parameters.Add("@IdCommand", SqlDbType.NVarChar).Value = order.IdOrder;
+                    command.Parameters.Add("@IdProduct", SqlDbType.NVarChar).Value = order.IdProducts[i].Id;
+                    command.ExecuteNonQuery();
+                }
+
+            }
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "DELETE FROM [COMMAND] WHERE IDCOMMAND = @IdCommand";
+                    command.Parameters.Add("@IdCommand", SqlDbType.NVarChar).Value = order.IdOrder;           
+                    command.ExecuteNonQuery();
                 
             }
         }
         public OrderModel GetByID(int id)
         {
+            OrderModel order = null;
             using (var connection = GetConnection())
             using (var command = new SqlCommand())
             {
@@ -111,25 +151,42 @@ namespace WpfApp1.Repositories
                 {
                     if (reader.Read())
                     {
-                        OrderModel order = new OrderModel()
+                        order = new OrderModel()
                         {
-                            IdOrder = int.Parse(reader[3].ToString()),
-                            IdClient = int.Parse(reader[1].ToString()),
-                            IdWorker = int.Parse(reader[2].ToString()),
-                            TotalPrice = float.Parse(reader[5].ToString()),
+                            IdOrder = int.Parse(reader[2].ToString()),
+                            IdClient = int.Parse(reader[0].ToString()),
+                            IdWorker = int.Parse(reader[1].ToString()),
+                            TotalPrice = float.Parse(reader[4].ToString()),
                         };
-                        order.IdProducts.Add(int.Parse(reader[0].ToString()));
-
-                        while (reader.Read())
-                        {
-                            order.IdProducts.Add(int.Parse(reader[0].ToString()));
-                        }
-                        return order;
                     }
                     
                 }
             }
-            return null;
+            ProductRepository _productRepository = new ProductRepository();
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT * FROM [PRODUCTCOMMAND] WHERE IdCommand = @id";
+                command.Parameters.Add("@id", SqlDbType.NVarChar).Value = id;
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        ProductModel product = new ProductModel()
+                        {
+                            Id = int.Parse(reader[0].ToString()),
+                            Quantite = int.Parse(reader[2].ToString()),
+                        };
+                        product.Name = _productRepository.GetByID(product.Id).Name;
+                        product.Price = _productRepository.GetByID(product.Id).Price;
+                        order.IdProducts.Add(product);
+                    }
+
+                }
+            }
+            return order;
         }
         public List<OrderModel> GetByAll()
         {
@@ -153,9 +210,21 @@ namespace WpfApp1.Repositories
             }
             return Wm;
         }
-        public List<ProductModel> GetProducts(OrderModel order)
+        public void DeleteProduct(ProductModel product, OrderModel order)
         {
-            return null;
+            
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "DELETE FROM [PRODUCTCOMMAND] WHERE IDPRODUCT = @IdProduct AND IDCOMMAND = @IdCommand ";
+                command.Parameters.Add("@IdProduct", SqlDbType.NVarChar).Value = product.Id;
+                command.Parameters.Add("@IdCommand", SqlDbType.NVarChar).Value = order.IdOrder;
+                command.ExecuteNonQuery();
+
+
+            }
         }
     }
 }

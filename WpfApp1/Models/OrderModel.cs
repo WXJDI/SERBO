@@ -11,7 +11,7 @@ namespace WpfApp1.Models
         public int IdOrder { get; set;}
 
         public int IdClient { get; set; }
-        public List<int> IdProducts { get; set; }
+        public List<ProductModel> IdProducts { get; set; }
         public int IdWorker { get; set; }
 
         public DateTime DateOrder { get; set; }
@@ -22,7 +22,7 @@ namespace WpfApp1.Models
 
         public OrderModel()
         {
-            IdProducts = new List<int>();
+            IdProducts = new List<ProductModel>();
         }
 
     }

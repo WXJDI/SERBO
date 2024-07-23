@@ -217,10 +217,25 @@ Background="{TemplateBinding Background}">
                                     FlowDirection="RightToLeft"
                                     VerticalAlignment="Center"
                                     Margin="0,0,10,0">
-                            <Button Style="{StaticResource IconButton}"
-                                    Tag="{StaticResource color1}">
-                                <fp:IconImage Icon="AngleDown" Style="{StaticResource iconButtonIcon}"/>
-                            </Button>
+                            <Menu Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <MenuItem >
+                                <MenuItem.Icon>
+                                    <fp:IconImage Width="15" Height="15" Icon="AngleDoubleDown" Foreground="{StaticResource color3}" />
+                                </MenuItem.Icon>
+                                    <MenuItem FontFamily="Montserret" FontWeight="Medium" Foreground="#0A003A" Background="#6D2FFF"  Header="Edit Profile">
+                                        <MenuItem.Icon>
+                                            <fp:IconImage Width="15" Height="15" Icon="UserEdit" Foreground="{StaticResource color3}" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem FontFamily="Montserret" FontWeight="Medium" Foreground="#0A003A" Background="#6D2FFF"  Header="Deconnect">
+                                        <MenuItem.Icon>
+                                            <fp:IconImage Width="15" Height="15" Icon="Close" Foreground="{StaticResource color3}" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                            </MenuItem>
+                            </Menu>
+                            
+                            
                             <TextBlock Text="{Binding CurrentUserAccount.DisplayName}"
                                        Foreground="{StaticResource titleColor3}"
                                        FontSize="20"

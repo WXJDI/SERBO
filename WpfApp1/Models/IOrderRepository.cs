@@ -13,7 +13,7 @@ namespace WpfApp1.Models
         void Delete(OrderModel order);
         OrderModel GetByID(int id);
         List<OrderModel> GetByAll();
+        void DeleteProduct(ProductModel product, OrderModel order);
 
-        List<ProductModel> GetProducts(OrderModel order);
     }
 }
