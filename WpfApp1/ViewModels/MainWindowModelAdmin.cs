@@ -1,64 +1,165 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using WpfApp1.Models;
 using WpfApp1.Repositories;
+using WpfApp1.Views;
 
 namespace WpfApp1.ViewModels
 {
     public class MainWindowModelAdmin : ViewModelBase
     {
         private UserAccountModel _currentUserAccount;
+        private AdminRepository _adminRepository;
+        private string _errorMessage;
+        private AdminModule _adminModule;
+        private bool _isViewVisible = true;
 
-        private IUserRepository userRepository;
+        public string ErrorMessage
+        {
+            get => _errorMessage;
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChanged(nameof(ErrorMessage));
+            }
+        }
 
-
+        public AdminModule AdminModule
+        {
+            get => _adminModule;
+            set
+            {
+                _adminModule = value;
+                OnPropertyChanged(nameof(AdminModule));
+            }
+        }
 
         public UserAccountModel CurrentUserAccount
         {
-            get
-            {
-                return _currentUserAccount;
-            }
-
+            get => _currentUserAccount;
             set
             {
                 _currentUserAccount = value;
                 OnPropertyChanged(nameof(CurrentUserAccount));
             }
         }
+        public bool IsViewVisible
+        {
+            get
+            {
+                return _isViewVisible;
+            }
+            set
+            {
+                _isViewVisible = value;
+                OnPropertyChanged(nameof(IsViewVisible));
+            }
+        }
+        public ICommand SaveCommand { get; }
 
         public MainWindowModelAdmin()
         {
-            userRepository = new UserRepository();
-            CurrentUserAccount = new UserAccountModel();
+            SaveCommand = new ViewModelCommand(ExecuteSave, canExecuteSave);
+            _adminRepository = new AdminRepository();
+            _adminModule = _adminRepository.GetByUsername(Thread.CurrentPrincipal.Identity.Name);
+            _currentUserAccount = new UserAccountModel();
             LoadCurrentUserData();
         }
 
-        private bool canExecuteWorkersCommand(object obj)
+        private bool canExecuteSave(object obj)
         {
-            return true;
+            bool ValiData = true;
+            if (string.IsNullOrWhiteSpace(AdminModule.Name))
+            {
+                ErrorMessage = "* Invalid Name";
+                ValiData = false;
+            }
+            else if (string.IsNullOrWhiteSpace(AdminModule.LastName))
+            {
+                ErrorMessage = "* Invalid LastName";
+                ValiData = false;
+            }
+            else if (string.IsNullOrWhiteSpace(AdminModule.NumTel))
+            {
+                ErrorMessage = "* Invalid NumTel";
+                ValiData = false;
+            }
+            else if (string.IsNullOrWhiteSpace(AdminModule.Cin))
+            {
+                ErrorMessage = "* Invalid Cin";
+                ValiData = false;
+            }
+            else if (string.IsNullOrEmpty(AdminModule.Date.ToString()))
+            {
+                ErrorMessage = "* Invalid Date";
+                ValiData = false;
+            }
+            else
+            {
+                ErrorMessage = string.Empty;
+            }
+
+            return ValiData;
         }
 
+        private void ExecuteSave(object obj)
+        {
+            if (canExecuteSave(obj))
+            {
+                try
+                {
+                    _adminRepository.UpdateWithoutPasswordUsername(AdminModule);
+          
+                    CurrentUserAccount.DisplayName = $"{AdminModule.Name} {AdminModule.LastName}";
+                    OnPropertyChanged(nameof(CurrentUserAccount));
+                    IsViewVisible = false;
+                    var loginView = new LoginView();
+                    loginView.Show();
+                    loginView.IsVisibleChanged += (s, ev) =>
+                    {
+                        if (loginView.IsVisible == false && loginView.IsLoaded)
+                        {
+                            var loginViewModel = (LoginViewModel)loginView.DataContext;
+                            Window mainView;
+                            if (loginViewModel.UserRole == "Admin")
+                            {
+                                mainView = new MainWindowAdmin();
+                            }
+                            else
+                            {
+                                mainView = new MainWindowWorker();
+                            }
+                            mainView.Show();
+                            loginView.Close();
+                        }
+                    };
+
+                }
+                catch (Exception ex)
+                {
+                    ErrorMessage = $"Error saving admin details: {ex.Message}";
+                }
+            }
+        }
 
         private void LoadCurrentUserData()
         {
-            var user = userRepository.GetByUsername(Thread.CurrentPrincipal.Identity.Name);
-            if (user != null)
+            if (_adminModule != null)
             {
-                CurrentUserAccount.Username = user.Username;
-                CurrentUserAccount.DisplayName = $" {user.Name} {user.LastName}";
-                CurrentUserAccount.ProfilePicture = null;
+                CurrentUserAccount.Username = AdminModule.Username;
+                CurrentUserAccount.DisplayName = $"{AdminModule.Name} {AdminModule.LastName}";
+                CurrentUserAccount.ProfilePicture = null; // Update this if you have profile picture logic.
+                OnPropertyChanged(nameof(CurrentUserAccount));
             }
             else
             {
                 CurrentUserAccount.DisplayName = "Invalid user, not logged in";
-                //Hide child views.
+                OnPropertyChanged(nameof(CurrentUserAccount));
+                // Hide child views or display appropriate message.
             }
         }
     }
 }
+

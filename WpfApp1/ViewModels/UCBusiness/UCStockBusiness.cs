@@ -31,7 +31,7 @@ namespace WpfApp1.ViewModels.UCBusiness
             AddCommand = new ViewModelCommand(AddProduct, CanExecuteCommand);
             EditCommand = new ViewModelCommand(EditProduct, CanExecuteCommand);
             DeleteCommand = new ViewModelCommand(DeleteProduct, CanExecuteCommand);
-            SaveCommand = new ViewModelCommand(SaveProduct, CanExecuteCommand);
+            SaveCommand1 = new ViewModelCommand(SaveProduct, CanExecuteCommand);
         }
 
         public string SearchName
@@ -68,7 +68,7 @@ namespace WpfApp1.ViewModels.UCBusiness
         public ICommand AddCommand { get; set; }
         public ICommand EditCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
-        public ICommand SaveCommand { get; set; }
+        public ICommand SaveCommand1 { get; set; }
 
         private void FilterProducts()
         {

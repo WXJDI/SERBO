@@ -4,9 +4,132 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1.Views.DataEntry"
+        xmlns:Uccb="clr-namespace:WpfApp1.ViewModels.UCBusiness"
         mc:Ignorable="d"
-        Title="OrderDataEntry" Height="450" Width="800">
-    <Grid>
-        
+        Title="OrderDataEntry" Background="{StaticResource titleColor3}" Height="600" Width="448">
+    <Window.DataContext>
+        <Uccb:UCOrdersBusiness/>
+    </Window.DataContext>
+    <Window.Resources>
+        <DataTemplate x:Key="ListBoxItemTemplate2">
+            <Border  BorderBrush="White" BorderThickness="1" CornerRadius="5" >
+                <Grid Height="50" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="120"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Foreground="{StaticResource color3}" FontFamily="Montserret" FontWeight="Medium" FontSize="15" Grid.Column="0" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding Id}" VerticalAlignment="Center"/>
+                    <TextBlock Foreground="{StaticResource color3}" FontFamily="Montserret" FontWeight="Medium" FontSize="15" Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Center"/>
+                    <TextBlock Foreground="{StaticResource color3}" FontFamily="Montserret" FontWeight="Medium" FontSize="15" Grid.Column="2" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding Quantite}" VerticalAlignment="Center"/>
+                </Grid>
+            </Border>
+
+        </DataTemplate>
+    </Window.Resources>
+    <Grid Height="600">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="350"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBox HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding SelectedOrder.IdClient}" VerticalAlignment="Center" Width="177" Height="42"  FontSize="15" Grid.Row="0" Margin="224,0,0,0" TextChanged="TextBox_TextChanged"/>
+        <TextBox HorizontalAlignment="Left" Margin="224,0,0,0" TextWrapping="Wrap" Text="{Binding SelectedOrder.IdWorker}" VerticalAlignment="Center" Width="177" Height="40" Grid.Row="1" FontSize="15"/>
+     
+        <Label Content="- Id de client : " HorizontalAlignment="Left" Margin="30,0,0,0" Grid.Row="0" VerticalAlignment="Center" Height="42" Width="189" FontSize="18" FontWeight="Bold"/>
+        <Label Content="- Id de worker : " HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" VerticalAlignment="Center" Height="40" Width="209" FontSize="18" FontWeight="Bold"/>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="80"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="120"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Margin="30,0,0,0" Foreground="{StaticResource color3}" HorizontalAlignment="Center" FontFamily="Montserret" FontWeight="Medium" FontSize="15" Grid.Column="0" TextWrapping="Wrap" Text="Idproduct" VerticalAlignment="Center"/>
+                    <TextBlock Foreground="{StaticResource color3}" FontFamily="Montserret" FontWeight="Medium" FontSize="15" Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Name" VerticalAlignment="Center"/>
+                    <TextBlock Foreground="{StaticResource color3}" FontFamily="Montserret" FontWeight="Medium" FontSize="15" Grid.Column="2" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Nomber" VerticalAlignment="Center"/>
+                </Grid>
+                <ListBox Width="358" Grid.Row="1" HorizontalAlignment="Left" Background="#0A0031"  BorderBrush="Blue" SelectedItem="{Binding SelectedProduct}" ItemTemplate="{DynamicResource ListBoxItemTemplate2}"  ItemsSource="{Binding ListOfProducts}" d:ItemsSource="{d:SampleData ItemCount=1024}" />
+            </Grid>
+            <Grid Grid.Column="2">
+                <StackPanel Margin="0,40,0,0" Orientation="Vertical" >
+                    <Button x:Name="BtnMinimize"
+            BorderThickness="0"
+            Content="+"
+            Foreground="White"
+            FontSize="20"
+            FontFamily="Montserret"
+            Cursor="Hand" Margin="0,20,0,0" Command="{Binding AddProductCommand}" >
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#2BAEED"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#278BEF"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button" >
+                                <Border Width="40" Height="40"
+                        CornerRadius="20"
+                        Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                      HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button x:Name="BtnClose"
+                            BorderThickness="0"
+                            Content="-"
+                            Foreground="White"
+                            FontSize="20"
+                            FontFamily="Montserret"
+                            Cursor="Hand" Margin="0,20,0,0"
+                            Command="{Binding DeleteProductCommand}">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#DA34AE"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#C62DAE"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button" >
+                                <Border Width="40" Height="40"
+CornerRadius="20"
+Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+              HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <Button Command="{Binding SaveCommand}" Content="Enregistrer" Margin="30,0,0,0" Grid.Row="8" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="90"/>
+        <Button  Content="Annuler" HorizontalAlignment="Right" Margin="0,0,30,0" Grid.Row="8" VerticalAlignment="Center" Grid.Column="1" Height="40" Width="90"/>
     </Grid>
 </Window>

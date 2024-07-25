@@ -12,21 +12,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace WpfApp1.Views.DataEntry
+namespace WpfApp1.Views.UserProfileEdit
 {
     /// <summary>
-    /// Logique d'interaction pour OrderDataEntry.xaml
+    /// Logique d'interaction pour WorkerProfileEdit.xaml
     /// </summary>
-    public partial class OrderDataEntry : Window
+    public partial class WorkerProfileEdit : Window
     {
-        public OrderDataEntry()
+        public WorkerProfileEdit()
         {
             InitializeComponent();
-        }
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
     }
 }

@@ -13,6 +13,10 @@ namespace WpfApp1.ViewModels
 
         private readonly Predicate<object> _canExecuteAction;
 
+        public ViewModelCommand()
+        {
+        }
+
         public ViewModelCommand(Action<object> executeAction)
         {
             _executeAction = executeAction;

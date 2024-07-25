@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using WpfApp1.Models;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using System.Security;
 
 namespace WpfApp1.Repositories
 {
@@ -82,20 +83,68 @@ namespace WpfApp1.Repositories
                 command.Parameters.Add("@Cin", SqlDbType.NVarChar).Value = admin.Cin;
                 command.Parameters.Add("@Email", SqlDbType.NVarChar).Value = admin.Email;
                 command.Parameters.Add("@NumTel", SqlDbType.NVarChar).Value = admin.NumTel;
-                command.Parameters.Add("@Password", SqlDbType.NVarChar).Value = admin.Password;
                 command.Parameters.Add("@Username", SqlDbType.NVarChar).Value = admin.Username;
+                command.Parameters.Add("@Password", SqlDbType.NVarChar).Value = admin.Password;
+
 
                 command.ExecuteNonQuery();
             }
         }
-        public AdminModule GetAdmin()
+        public void UpdateOnlyPasswordUsername(AdminModule admin)
         {
             using (var connection = GetConnection())
             using (var command = new SqlCommand())
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "select *from [ADMIN]";
+                command.CommandText = @"
+                    UPDATE [ADMIN]
+                    SET Password = @Password,
+                        Username = @Username
+                    WHERE IDUSER = @IdWorker";
+                command.Parameters.Add("@Username", SqlDbType.NVarChar).Value = admin.Username;
+                command.Parameters.Add("@Password", SqlDbType.NVarChar).Value = admin.Password;
+
+
+                command.ExecuteNonQuery();
+            }
+        }
+        public void UpdateWithoutPasswordUsername(AdminModule admin)
+        {
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = @"
+                    UPDATE [ADMIN]
+                    SET Name = @Name,
+                        LastName = @LastName,
+                        CIN = @Cin,
+                        ADRESSMAIL = @Email,
+                        NUMTEL = @NumTel
+                    WHERE IDUSER = @IdWorker";
+
+                command.Parameters.Add("@IdWorker", SqlDbType.NVarChar).Value = admin.IdWorker;
+                command.Parameters.Add("@Name", SqlDbType.NVarChar).Value = admin.Name;
+                command.Parameters.Add("@LastName", SqlDbType.NVarChar).Value = admin.LastName;
+                command.Parameters.Add("@Cin", SqlDbType.NVarChar).Value = admin.Cin;
+                command.Parameters.Add("@Email", SqlDbType.NVarChar).Value = admin.Email;
+                command.Parameters.Add("@NumTel", SqlDbType.NVarChar).Value = admin.NumTel;
+
+
+                command.ExecuteNonQuery();
+            }
+        }
+        public AdminModule GetByUsername(string username)
+        {
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "select *from [ADMIN] WHERE Username = @Username";
+                command.Parameters.Add("@Username", SqlDbType.NVarChar).Value = username;
                 using (var reader = command.ExecuteReader())
                 {
                     if (reader.Read())
@@ -117,5 +166,34 @@ namespace WpfApp1.Repositories
             }
             return null;
         }
+            public AdminModule GetAdmin()
+            {
+                using (var connection = GetConnection())
+                using (var command = new SqlCommand())
+                {
+                    connection.Open();
+                    command.Connection = connection;
+                    command.CommandText = "select *from [ADMIN] ";
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            var admin = new AdminModule()
+                            {
+                                IdWorker = int.Parse(reader[0].ToString()),
+                                Username = reader[7].ToString(),
+                                Password = string.Empty,
+                                Name = reader[2].ToString(),
+                                LastName = reader[1].ToString(),
+                                Email = reader[4].ToString(),
+                                NumTel = reader[5].ToString(),
+                                Cin = reader[3].ToString(),
+                            };
+                            return admin;
+                        }
+                    }
+                }
+                return null;
+            }
     }
 }

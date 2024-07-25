@@ -141,8 +141,8 @@ namespace WpfApp1.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "DELETE FROM [CLIENT] WHERE IdClient = @id";
-                command.Parameters.Add("@IdClient", SqlDbType.NVarChar).Value = id;
+                command.CommandText = "SELECT * FROM [CLIENT] WHERE IDUSER = @id";
+                command.Parameters.Add("@id", SqlDbType.NVarChar).Value = id;
                 using (var reader = command.ExecuteReader())
                 {
                     if (reader.Read())

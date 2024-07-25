@@ -15,7 +15,12 @@
     <Window.DataContext>
         <viewModel:MainWindowModelAdmin />
     </Window.DataContext>
-
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
+    </Window.Resources>
+    <Window.Visibility>
+        <Binding Path="IsViewVisible" Mode="TwoWay" Converter="{StaticResource BooleanToVisibility}"/>
+    </Window.Visibility>
     <Border CornerRadius="50"
         BorderThickness="1"
             Opacity="0.95">
@@ -180,15 +185,15 @@ Background="{TemplateBinding Background}">
                             </Button.Template>
                         </Button>
                         <Button x:Name="BtnScreen"
-            BorderThickness="0"
-            Content="[]"
-            Foreground="White"
-            FontSize="16"
-            FontFamily="Montserret"
-            Cursor="Hand"   
-            Grid.Column="2"
-            Click="BtnScreen_Click"
-            >
+                                BorderThickness="0"
+                                Content="[]"
+                                Foreground="White"
+                                FontSize="16"
+                                FontFamily="Montserret"
+                                Cursor="Hand"   
+                                Grid.Column="2"
+                                Click="BtnScreen_Click"
+                                >
                             <Button.Style>
                                 <Style TargetType="Button">
                                     <Setter Property="Background" Value="DarkTurquoise"/>
@@ -222,12 +227,12 @@ Background="{TemplateBinding Background}">
                                 <MenuItem.Icon>
                                     <fp:IconImage Width="15" Height="15" Icon="AngleDoubleDown" Foreground="{StaticResource color3}" />
                                 </MenuItem.Icon>
-                                    <MenuItem FontFamily="Montserret" FontWeight="Medium" Foreground="#0A003A" Background="#6D2FFF"  Header="Edit Profile">
+                                    <MenuItem Click="MenuItem_Click_1" FontFamily="Montserret" FontWeight="Medium" Foreground="#0A003A" Background="#6D2FFF"  Header="Edit Profile">
                                         <MenuItem.Icon>
                                             <fp:IconImage Width="15" Height="15" Icon="UserEdit" Foreground="{StaticResource color3}" />
                                         </MenuItem.Icon>
                                     </MenuItem>
-                                    <MenuItem FontFamily="Montserret" FontWeight="Medium" Foreground="#0A003A" Background="#6D2FFF"  Header="Deconnect">
+                                    <MenuItem Click="MenuItem_Click" FontFamily="Montserret" FontWeight="Medium" Foreground="#0A003A" Background="#6D2FFF"  Header="Deconnect">
                                         <MenuItem.Icon>
                                             <fp:IconImage Width="15" Height="15" Icon="Close" Foreground="{StaticResource color3}" />
                                         </MenuItem.Icon>
@@ -236,7 +241,7 @@ Background="{TemplateBinding Background}">
                             </Menu>
                             
                             
-                            <TextBlock Text="{Binding CurrentUserAccount.DisplayName}"
+                            <TextBlock Text="{Binding CurrentUserAccount.DisplayName, UpdateSourceTrigger=PropertyChanged}"
                                        Foreground="{StaticResource titleColor3}"
                                        FontSize="20"
                                        FontFamily="Montserret"

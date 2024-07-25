@@ -15,18 +15,17 @@ using System.Windows.Shapes;
 namespace WpfApp1.Views.DataEntry
 {
     /// <summary>
-    /// Logique d'interaction pour OrderDataEntry.xaml
+    /// Logique d'interaction pour ProductDataEntry.xaml
     /// </summary>
-    public partial class OrderDataEntry : Window
+    public partial class ProductOrderDataEntry : Window
     {
-        public OrderDataEntry()
+        public ProductOrderDataEntry()
         {
             InitializeComponent();
         }
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void TextBox_TextChanged(object sender, EventArgs e)
         {
-
+            
         }
     }
 }

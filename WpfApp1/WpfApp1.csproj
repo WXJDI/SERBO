@@ -129,6 +129,7 @@
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Repositories\WorkerRepository.cs" />
     <Compile Include="Tools\WindowStateToMarginSizeConverter.cs" />
+    <Compile Include="ViewModels\AdminProdileEditViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModelWorker.cs" />
     <Compile Include="ViewModels\MainWindowModelAdmin.cs" />
@@ -138,11 +139,15 @@
     <Compile Include="ViewModels\UCBusiness\UCWorkersBusiness.cs" />
     <Compile Include="ViewModels\ViewModelCommand.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="ViewModels\WorkerProfileEditViewModel.cs" />
     <Compile Include="Views\DataEntry\ClientDataEntry.xaml.cs">
       <DependentUpon>ClientDataEntry.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DataEntry\OrderDataEntry.xaml.cs">
       <DependentUpon>OrderDataEntry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DataEntry\ProductOrderDataEntry.xaml.cs">
+      <DependentUpon>ProductOrderDataEntry.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DataEntry\ProductDataEntry.xaml.cs">
       <DependentUpon>ProductDataEntry.xaml</DependentUpon>
@@ -165,6 +170,12 @@
     <Compile Include="Views\UCs\UCWorkers.xaml.cs">
       <DependentUpon>UCWorkers.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserProfileEdit\AdminProfileEdit.xaml.cs">
+      <DependentUpon>AdminProfileEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserProfileEdit\WorkerProfileEdit.xaml.cs">
+      <DependentUpon>WorkerProfileEdit.xaml</DependentUpon>
+    </Compile>
     <Page Include="CustomControls\BindablePasswordBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -184,6 +195,10 @@
     <Page Include="Views\DataEntry\OrderDataEntry.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DataEntry\ProductOrderDataEntry.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\DataEntry\ProductDataEntry.xaml">
       <SubType>Designer</SubType>
@@ -229,6 +244,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UCs\UCWorkers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserProfileEdit\AdminProfileEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserProfileEdit\WorkerProfileEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

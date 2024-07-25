@@ -153,7 +153,7 @@ namespace WpfApp1.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT FROM [WORKER] WHERE IdUSER = @idWorker";
+                command.CommandText = "SELECT * FROM [WORKER] WHERE IdUSER = @idWorker";
                 command.Parameters.Add("@idWorker", SqlDbType.NVarChar).Value = id;
                 using (var reader = command.ExecuteReader())
                 {

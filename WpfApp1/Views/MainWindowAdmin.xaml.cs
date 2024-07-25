@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp1.ViewModels;
 
 namespace WpfApp1.Views
 {
@@ -79,5 +80,36 @@ namespace WpfApp1.Views
             grcontent.Children.Add(Ordercontrole);
         }
 
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var loginView = new LoginView();
+            loginView.Show();
+            loginView.IsVisibleChanged += (s, ev) =>
+            {
+                if (loginView.IsVisible == false && loginView.IsLoaded)
+                {
+                    var loginViewModel = (LoginViewModel)loginView.DataContext;
+                    Window mainView;
+                    if (loginViewModel.UserRole == "Admin")
+                    {
+                        mainView = new MainWindowAdmin();
+                    }
+                    else
+                    {
+                        mainView = new MainWindowWorker();
+                    }
+                    mainView.Show();
+                    loginView.Close();
+                }
+            };
+            this.Close();
+        }
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            Views.UserProfileEdit.AdminProfileEdit adminProfileEdit = new Views.UserProfileEdit.AdminProfileEdit();
+
+            grcontent.Children.Add(adminProfileEdit);
+        }
     }
 }

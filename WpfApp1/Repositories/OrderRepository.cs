@@ -24,7 +24,14 @@ namespace WpfApp1.Repositories
                 {
                     if (reader.Read())
                     {
-                        order.IdOrder = int.Parse(reader[3].ToString()) + 1;
+                        if (!reader.IsDBNull(0))
+                        {
+                            order.IdOrder = int.Parse(reader[0].ToString()) + 1;
+                        }
+                        else
+                        {
+                            order.IdOrder = 1; // Si la table est vide, commencez par 1
+                        }
                     }
                 }
             }
@@ -36,13 +43,12 @@ namespace WpfApp1.Repositories
                 command.Connection = connection;
                     command.CommandText = @"
                     INSERT INTO [COMMAND]
-                    (IDCOMMAND,IDCLIENT, IDWORKER, DATECOMMAND,TOTALPRICE) 
+                    (IDCOMMAND,CLI_IDUSER,IDUSER,TOTALPRICE) 
                     VALUES 
-                    (@IdCommand,@IdClient, @IdWorker,  @DateCommand,@TotalPrice);";
+                    (@IdCommand,@IdClient, @IdWorker,@TotalPrice);";
                     command.Parameters.Add("@IdClient", SqlDbType.NVarChar).Value = order.IdClient;
                     command.Parameters.Add("@IdWorker", SqlDbType.NVarChar).Value = order.IdWorker;
                     command.Parameters.Add("@IdCommand", SqlDbType.NVarChar).Value = order.IdOrder;
-                    command.Parameters.Add("@DateCommand", SqlDbType.NVarChar).Value = order.DateOrder;
                     command.Parameters.Add("@TotalPrice", SqlDbType.NVarChar).Value = order.TotalPrice;
                     command.ExecuteNonQuery();      
             }
@@ -75,8 +81,8 @@ namespace WpfApp1.Repositories
                 command.Connection = connection;
                     command.CommandText = @"
                     UPDATE [COMMAND]
-                    SET IDCLIENT = @IdClient, 
-                        IDWORKER = @IdWorker,
+                    SET CLI_IDUSER = @IdClient, 
+                        IDUSER = @IdWorker,
                         DATECOMMAND = @DateCommand,
                         TOTALPRICE = @TotalPrice ,
                     WHERE IDCOMMAND = @IdCommand";
