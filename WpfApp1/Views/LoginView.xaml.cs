@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WpfApp1.ViewModels;
 
 namespace WpfApp1.Views
 {
@@ -23,7 +24,19 @@ namespace WpfApp1.Views
         public LoginView()
         {
             InitializeComponent();
+            DataContext = new LoginViewModel(); // Ensure DataContext is set
         }
+
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                // Simulate a button click when Enter is pressed
+                Btnlogin.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            }
+        }
+
+
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -52,5 +65,9 @@ namespace WpfApp1.Views
                 WindowStyle = WindowStyle.None;
             }
         }
+        
+
+
+
     }
 }

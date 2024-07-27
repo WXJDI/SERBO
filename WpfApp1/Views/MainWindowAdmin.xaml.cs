@@ -80,6 +80,24 @@ namespace WpfApp1.Views
             grcontent.Children.Add(Ordercontrole);
         }
 
+<<<<<<< HEAD
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            if (button != null)
+            {
+                button.ContextMenu.IsOpen = true;
+            }
+        }
+
+        private void Button_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+        private void Button_ContextMenuOpening(object sender, ContextMenuEventArgs e)
+        {
+
+=======
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             var loginView = new LoginView();
@@ -110,6 +128,7 @@ namespace WpfApp1.Views
             Views.UserProfileEdit.AdminProfileEdit adminProfileEdit = new Views.UserProfileEdit.AdminProfileEdit();
 
             grcontent.Children.Add(adminProfileEdit);
+>>>>>>> b427cd1a487c110baaa0b9e109f60f50b344b075
         }
     }
 }

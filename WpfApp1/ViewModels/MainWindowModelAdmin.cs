@@ -11,6 +11,13 @@ namespace WpfApp1.ViewModels
     public class MainWindowModelAdmin : ViewModelBase
     {
         private UserAccountModel _currentUserAccount;
+<<<<<<< HEAD
+        private IUserRepository userRepository;
+
+        public UserAccountModel CurrentUserAccount
+        {
+            get { return _currentUserAccount; }
+=======
         private AdminRepository _adminRepository;
         private string _errorMessage;
         private AdminModule _adminModule;
@@ -39,6 +46,7 @@ namespace WpfApp1.ViewModels
         public UserAccountModel CurrentUserAccount
         {
             get => _currentUserAccount;
+>>>>>>> b427cd1a487c110baaa0b9e109f60f50b344b075
             set
             {
                 _currentUserAccount = value;
@@ -59,6 +67,8 @@ namespace WpfApp1.ViewModels
         }
         public ICommand SaveCommand { get; }
 
+        public ICommand DeconnectCommand { get; private set; }
+
         public MainWindowModelAdmin()
         {
             SaveCommand = new ViewModelCommand(ExecuteSave, canExecuteSave);
@@ -66,8 +76,11 @@ namespace WpfApp1.ViewModels
             _adminModule = _adminRepository.GetByUsername(Thread.CurrentPrincipal.Identity.Name);
             _currentUserAccount = new UserAccountModel();
             LoadCurrentUserData();
+            DeconnectCommand = new RelayCommand(Deconnect);
         }
 
+<<<<<<< HEAD
+=======
         private bool canExecuteSave(object obj)
         {
             bool ValiData = true;
@@ -123,6 +136,7 @@ namespace WpfApp1.ViewModels
             }
         }
 
+>>>>>>> b427cd1a487c110baaa0b9e109f60f50b344b075
         private void LoadCurrentUserData()
         {
             if (_adminModule != null)
@@ -138,6 +152,12 @@ namespace WpfApp1.ViewModels
                 OnPropertyChanged(nameof(CurrentUserAccount));
                 // Hide child views or display appropriate message.
             }
+        }
+
+        private void Deconnect()
+        {
+            LoginView loginView = new LoginView();
+            loginView.Show();
         }
     }
 }

@@ -202,7 +202,7 @@ namespace WpfApp1.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT DISTINCT IDCOMMAND FROM [COMMAND]";
+                command.CommandText = "SELECT DISTINCT idCommand FROM [COMMAND]";
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())

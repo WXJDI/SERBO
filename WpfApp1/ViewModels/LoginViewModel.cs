@@ -23,6 +23,14 @@ namespace WpfApp1.ViewModels
         private string _userrole;
 
         private IUserRepository userRepository;
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                MessageBox.Show("Enter key pressed.");
+            }
+        }
+
         public string Username
         {
             get

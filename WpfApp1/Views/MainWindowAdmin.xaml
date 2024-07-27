@@ -222,6 +222,23 @@ Background="{TemplateBinding Background}">
                                     FlowDirection="RightToLeft"
                                     VerticalAlignment="Center"
                                     Margin="0,0,10,0">
+<<<<<<< HEAD
+                            <Button Style="{StaticResource IconButton}"
+        Tag="{StaticResource color1}"
+        ContextMenuOpening="Button_ContextMenuOpening" Click="Button_Click" MouseDown="Button_MouseDown">
+                                <fp:IconImage Icon="AngleDown" Style="{StaticResource iconButtonIcon}" RenderTransformOrigin="0.5,0.691"/>
+                                <Button.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Deconnect"
+                      Command="{Binding DeconnectCommand}" />
+                                        <MenuItem Header="Edit Prog" />
+
+                                    </ContextMenu>
+                                </Button.ContextMenu>
+                            </Button>
+
+                            <TextBlock Text="{Binding CurrentUserAccount.DisplayName}"
+=======
                             <Menu Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <MenuItem >
                                 <MenuItem.Icon>
@@ -242,6 +259,7 @@ Background="{TemplateBinding Background}">
                             
                             
                             <TextBlock Text="{Binding CurrentUserAccount.DisplayName, UpdateSourceTrigger=PropertyChanged}"
+>>>>>>> b427cd1a487c110baaa0b9e109f60f50b344b075
                                        Foreground="{StaticResource titleColor3}"
                                        FontSize="20"
                                        FontFamily="Montserret"
@@ -338,6 +356,7 @@ Background="{TemplateBinding Background}">
                     </Grid>
                 </Grid>
             </Border>
+            
         </Grid>
     </Border>
 </Window>

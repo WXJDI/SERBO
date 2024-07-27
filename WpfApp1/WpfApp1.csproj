@@ -107,6 +107,7 @@
     </Compile>
     <Compile Include="Models\AdminModule.cs" />
     <Compile Include="Models\CategoryModel.cs" />
+    <Compile Include="Models\RelayCommand .cs" />
     <Compile Include="Models\ClientModel.cs" />
     <Compile Include="Models\IAdminRepository.cs" />
     <Compile Include="Models\ICategoryRepository.cs" />
@@ -324,6 +325,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\search-icon.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
     <Content Include="data\db-local.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -331,8 +336,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>db-local.mdf</DependentUpon>
     </Content>
+<<<<<<< HEAD
+=======
     <Resource Include="Images\double-down.png" />
     <Resource Include="Images\search-icon.png" />
+>>>>>>> b427cd1a487c110baaa0b9e109f60f50b344b075
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.5.1.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.5.1.0\build\MaterialDesignThemes.targets')" />
