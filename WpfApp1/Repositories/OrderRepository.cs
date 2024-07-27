@@ -232,5 +232,28 @@ namespace WpfApp1.Repositories
 
             }
         }
+        public List<OrderModel> GetByIdWorker(int id)
+        {
+            List<OrderModel> Wm = new List<OrderModel>();
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT DISTINCT IDCOMMAND FROM [COMMAND] WHERE IDUSER = @id";
+                command.Parameters.Add("@id", SqlDbType.NVarChar).Value = id;
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        OrderModel order = new OrderModel();
+                        order = GetByID(int.Parse(reader[0].ToString()));
+                        Wm.Add(order);
+                    }
+
+                }
+            }
+            return Wm;
+        }
     }
 }

@@ -125,17 +125,23 @@ namespace WpfApp1.ViewModels.UCBusiness
 
         private void SaveProduct(object obj)
         {
-            if (ToSave)
+            if (_workerRepository.GetByUsername(_selectedworker.Username)==null)
             {
-                _workerRepository.Add(_selectedworker);
+                if (ToSave)
+                {
+                    _workerRepository.Add(_selectedworker);
+                }
+                else
+                {
+                    _workerRepository.Update(_selectedworker);
+                }
+                productDataEntry.Close();
+
+                RefreshProductList();
             }
             else
-            {
-                _workerRepository.Update(_selectedworker);
-            }
-            productDataEntry.Close();
-
-            RefreshProductList();
+                System.Windows.MessageBox.Show("Invalid Username");
+            
         }
 
         private void RefreshProductList()

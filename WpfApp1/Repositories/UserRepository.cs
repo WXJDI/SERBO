@@ -25,7 +25,7 @@ namespace WpfApp1.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "Select *from [ADMIN] where UserName=@username and Password=@password ";
+                command.CommandText = "Select * from [ADMIN] where UserName=@username and Password=@password ";
                 command.Parameters.Add("@username", SqlDbType.NVarChar).Value = credential.UserName;
                 command.Parameters.Add("@password", SqlDbType.NVarChar).Value = credential.Password;
                 validAdmin = command.ExecuteScalar() == null ? false : true;
@@ -35,7 +35,7 @@ namespace WpfApp1.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "Select *from [WORKER] where Username=@username and Password=@password ";
+                command.CommandText = "Select * from [WORKER] where Username=@username and Password=@password ";
                 command.Parameters.Add("@username", SqlDbType.NVarChar).Value = credential.UserName;
                 command.Parameters.Add("@password", SqlDbType.NVarChar).Value = credential.Password;
                 validWorker = command.ExecuteScalar() == null ? false : true;

@@ -14,6 +14,7 @@ namespace WpfApp1.Models
         OrderModel GetByID(int id);
         List<OrderModel> GetByAll();
         void DeleteProduct(ProductModel product, OrderModel order);
+        List<OrderModel> GetByIdWorker(int id);
 
     }
 }

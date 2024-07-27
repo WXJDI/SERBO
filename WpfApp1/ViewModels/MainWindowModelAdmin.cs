@@ -113,29 +113,8 @@ namespace WpfApp1.ViewModels
                     _adminRepository.UpdateWithoutPasswordUsername(AdminModule);
           
                     CurrentUserAccount.DisplayName = $"{AdminModule.Name} {AdminModule.LastName}";
-                    OnPropertyChanged(nameof(CurrentUserAccount));
-                    IsViewVisible = false;
-                    var loginView = new LoginView();
-                    loginView.Show();
-                    loginView.IsVisibleChanged += (s, ev) =>
-                    {
-                        if (loginView.IsVisible == false && loginView.IsLoaded)
-                        {
-                            var loginViewModel = (LoginViewModel)loginView.DataContext;
-                            Window mainView;
-                            if (loginViewModel.UserRole == "Admin")
-                            {
-                                mainView = new MainWindowAdmin();
-                            }
-                            else
-                            {
-                                mainView = new MainWindowWorker();
-                            }
-                            mainView.Show();
-                            loginView.Close();
-                        }
-                    };
 
+                    OnPropertyChanged(nameof(CurrentUserAccount));
                 }
                 catch (Exception ex)
                 {

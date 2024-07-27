@@ -27,27 +27,27 @@
             <ColumnDefinition Width="630"/>
         </Grid.ColumnDefinitions>
         <Border Grid.Row="0" Background="Transparent" Grid.Column="1" CornerRadius="10" BorderThickness="2" BorderBrush="{StaticResource color3}" Margin="50,20,200,20">
-            <TextBox Text="{Binding AdminModule.Name}"  Foreground="White" Background="Transparent"  Name="NameTextBox" />
+            <TextBox Text="{Binding AdminModule.Name}" FontSize="18" FontFamily="Montserret" FontWeight="Medium"  Foreground="White" Background="Transparent"  Name="NameTextBox" />
         </Border>
         <TextBlock FontFamily="Montserret" FontSize="20" FontWeight="Medium" Foreground="{StaticResource color3}"  Grid.Row="0" Grid.Column="0"  Text="Name :" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <Border CornerRadius="10" BorderThickness="2" BorderBrush="{StaticResource color3}" Margin="50,20,200,20" Grid.Row="1" Grid.Column="1">
-            <TextBox Text="{Binding AdminModule.LastName}" Background="Transparent"  Name="LastNameTextBox"  />
+            <TextBox Text="{Binding AdminModule.LastName}" FontSize="18" FontFamily="Montserret" FontWeight="Medium" Foreground="White" Background="Transparent"  Name="LastNameTextBox"  />
         </Border>
         <TextBlock FontFamily="Montserret" FontSize="20" FontWeight="Medium" Foreground="{StaticResource color3}"  Grid.Row="1" Grid.Column="0"  Text="LastName :" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <Border  CornerRadius="10" BorderThickness="2" BorderBrush="{StaticResource color3}" Margin="50,20,200,20"  Grid.Row="2" Grid.Column="1">
-            <TextBox Text="{Binding AdminModule.NumTel}" Background="Transparent"  Name="PhoneNumberTextBox" />
+            <TextBox Text="{Binding AdminModule.NumTel}" FontSize="18" FontFamily="Montserret" FontWeight="Medium" Foreground="White" Background="Transparent"  Name="PhoneNumberTextBox" />
         </Border>
         <TextBlock FontFamily="Montserret" FontSize="20" FontWeight="Medium" Foreground="{StaticResource color3}"  Grid.Row="2" Grid.Column="0"  Text="Phone Number :" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <Border  CornerRadius="10" BorderThickness="2" BorderBrush="{StaticResource color3}" Margin="50,20,200,20" Grid.Row="3" Grid.Column="1">
-            <TextBox Text="{Binding AdminModule.Date}" Background="Transparent"  Name="DateTextBox" />
+            <TextBox Text="{Binding AdminModule.Date}" FontSize="18" FontFamily="Montserret" FontWeight="Medium" Foreground="White" Background="Transparent"  Name="DateTextBox" />
         </Border>
-        <TextBlock FontFamily="Montserret" FontSize="20" FontWeight="Medium" Foreground="{StaticResource color3}"  Grid.Row="3" Grid.Column="0"  Text="Date of Birth :" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock FontFamily="Montserret" FontSize="20"  FontWeight="Medium" Foreground="{StaticResource color3}"  Grid.Row="3" Grid.Column="0"  Text="Date of Birth :" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <Border  CornerRadius="10" BorderThickness="2" BorderBrush="{StaticResource color3}" Margin="50,20,200,20" Grid.Row="4" Grid.Column="1">
-            <TextBox Text="{Binding AdminModule.Cin}" Background="Transparent" Grid.Row="3" Grid.Column="1" Name="CinTextBox" />
+            <TextBox Text="{Binding AdminModule.Cin}" FontSize="18" FontFamily="Montserret" FontWeight="Medium" Foreground="White" Background="Transparent" Grid.Row="3" Grid.Column="1" Name="CinTextBox" />
         </Border>
         <TextBlock FontFamily="Montserret" FontSize="20" FontWeight="Medium" Foreground="{StaticResource color3}"  Grid.Row="4" Grid.Column="0"  Text="CIN :" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <Border  CornerRadius="10" BorderThickness="2" BorderBrush="{StaticResource color3}" Margin="50,20,200,20" Grid.Row="5" Grid.Column="1">
-            <TextBox Text="{Binding AdminModule.Email}" Background="Transparent" Grid.Row="3" Grid.Column="1" Name="EmailTextBox" />
+            <TextBox Text="{Binding AdminModule.Email}" FontSize="18" FontFamily="Montserret" FontWeight="Medium" Foreground="White" Background="Transparent" Grid.Row="3" Grid.Column="1" Name="EmailTextBox" />
         </Border>
         <TextBlock FontFamily="Montserret" FontSize="20" FontWeight="Medium" Foreground="{StaticResource color3}"  Grid.Row="5" Grid.Column="0"  Text="EMAIL :" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <Button     BorderThickness="0"

@@ -135,6 +135,7 @@
     <Compile Include="ViewModels\MainWindowModelAdmin.cs" />
     <Compile Include="ViewModels\UCBusiness\UCClientsBusiness.cs" />
     <Compile Include="ViewModels\UCBusiness\UCOrdersBusiness.cs" />
+    <Compile Include="ViewModels\UCBusiness\UCOrdersByWorkerBusiness.cs" />
     <Compile Include="ViewModels\UCBusiness\UCStockBusiness.cs" />
     <Compile Include="ViewModels\UCBusiness\UCWorkersBusiness.cs" />
     <Compile Include="ViewModels\ViewModelCommand.cs" />
@@ -142,6 +143,9 @@
     <Compile Include="ViewModels\WorkerProfileEditViewModel.cs" />
     <Compile Include="Views\DataEntry\ClientDataEntry.xaml.cs">
       <DependentUpon>ClientDataEntry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DataEntry\OrderByWorkerDataEntry.xaml.cs">
+      <DependentUpon>OrderByWorkerDataEntry.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DataEntry\OrderDataEntry.xaml.cs">
       <DependentUpon>OrderDataEntry.xaml</DependentUpon>
@@ -163,6 +167,9 @@
     </Compile>
     <Compile Include="Views\UCs\UCOrders.xaml.cs">
       <DependentUpon>UCOrders.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UCs\UCOrdersByWorker.xaml.cs">
+      <DependentUpon>UCOrdersByWorker.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UCs\UCStock.xaml.cs">
       <DependentUpon>UCStock.xaml</DependentUpon>
@@ -189,6 +196,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DataEntry\ClientDataEntry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DataEntry\OrderByWorkerDataEntry.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -236,6 +247,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UCs\UCOrders.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UCs\UCOrdersByWorker.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
