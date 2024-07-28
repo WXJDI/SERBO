@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace WpfApp1.Views.UserProfileEdit
 {
     /// <summary>
-    /// Logique d'interaction pour WorkerProfileEdit.xaml
+    /// Logique d'interaction pour ResetPassword.xaml
     /// </summary>
-    public partial class WorkerProfileEdit : UserControl
+    public partial class ResetPassword : UserControl
     {
-        public WorkerProfileEdit()
+        public ResetPassword()
         {
             InitializeComponent();
         }

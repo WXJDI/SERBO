@@ -13,6 +13,7 @@ namespace WpfApp1.ViewModels
         private UserAccountModel _currentUserAccount;
         private AdminRepository _adminRepository;
         private string _errorMessage;
+        private string _currentPassword;
         private AdminModule _adminModule;
         private bool _isViewVisible = true;
 
@@ -23,6 +24,15 @@ namespace WpfApp1.ViewModels
             {
                 _errorMessage = value;
                 OnPropertyChanged(nameof(ErrorMessage));
+            }
+        }
+        public string CurrentPassword
+        {
+            get => _currentPassword;
+            set
+            {
+                _currentPassword = value;
+                OnPropertyChanged(nameof(CurrentPassword));
             }
         }
 
@@ -58,14 +68,52 @@ namespace WpfApp1.ViewModels
             }
         }
         public ICommand SaveCommand { get; }
+        public ICommand SaveCommand3 { get; }
 
         public MainWindowModelAdmin()
         {
             SaveCommand = new ViewModelCommand(ExecuteSave, canExecuteSave);
+            SaveCommand3 = new ViewModelCommand(ExecuteSave3, canExecuteSave3);
             _adminRepository = new AdminRepository();
             _adminModule = _adminRepository.GetByUsername(Thread.CurrentPrincipal.Identity.Name);
             _currentUserAccount = new UserAccountModel();
             LoadCurrentUserData();
+        }
+
+        private bool canExecuteSave3(object obj)
+        {
+            bool ValiData = true;
+            if (string.IsNullOrWhiteSpace(AdminModule.Username))
+            {
+                ErrorMessage = "* Invalid Username";
+                ValiData = false;
+            }
+            else if (string.IsNullOrWhiteSpace(CurrentPassword))
+            {
+                ErrorMessage = "* Invalid Current Password";
+                ValiData = false;
+            }
+            else if (string.IsNullOrWhiteSpace(AdminModule.Password))
+            {
+                ErrorMessage = "* Invalid New Password";
+                ValiData = false;
+            }
+            else
+            {
+                ErrorMessage = string.Empty;
+            }
+            return ValiData;
+        }
+
+        private void ExecuteSave3(object obj)
+        {
+            if (CurrentPassword == _adminRepository.GetPassword(Thread.CurrentPrincipal.Identity.Name))
+            {
+                _adminRepository.UpdateOnlyPasswordUsername(AdminModule);
+                MessageBox.Show("Username and password has been updated succesfully !!");
+            }
+            else
+                MessageBox.Show("Invalid Current Password ??");
         }
 
         private bool canExecuteSave(object obj)
@@ -115,6 +163,7 @@ namespace WpfApp1.ViewModels
                     CurrentUserAccount.DisplayName = $"{AdminModule.Name} {AdminModule.LastName}";
 
                     OnPropertyChanged(nameof(CurrentUserAccount));
+                    System.Windows.MessageBox.Show("User Profile has been updated succesfully !!");
                 }
                 catch (Exception ex)
                 {

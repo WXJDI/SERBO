@@ -104,6 +104,7 @@ namespace WpfApp1.Repositories
                     WHERE IDUSER = @IdWorker";
                 command.Parameters.Add("@Username", SqlDbType.NVarChar).Value = admin.Username;
                 command.Parameters.Add("@Password", SqlDbType.NVarChar).Value = admin.Password;
+                command.Parameters.Add("@IdWorker", SqlDbType.NVarChar).Value = admin.IdWorker;
 
 
                 command.ExecuteNonQuery();
@@ -195,5 +196,24 @@ namespace WpfApp1.Repositories
                 }
                 return null;
             }
+        public string GetPassword(string pass)
+        {
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "select Password from [ADMIN] where Username = @pass ";
+                command.Parameters.Add("@pass", SqlDbType.NVarChar).Value = pass;
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    { 
+                        return (reader[0].ToString());
+                    }
+                }
+            }
+            return null;
+        }
     }
 }

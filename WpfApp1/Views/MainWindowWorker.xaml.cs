@@ -103,5 +103,11 @@ namespace WpfApp1.Views
 
             grcontent.Children.Add(workerProfileEdit);
         }
+        private void MenuItem_Click2(object sender, RoutedEventArgs e)
+        {
+            Views.UserProfileEdit.ResetPassworkWorker resetPassword = new Views.UserProfileEdit.ResetPassworkWorker();
+
+            grcontent.Children.Add(resetPassword);
+        }
     }
 }

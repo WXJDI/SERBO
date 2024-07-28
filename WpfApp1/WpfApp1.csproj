@@ -129,7 +129,6 @@
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Repositories\WorkerRepository.cs" />
     <Compile Include="Tools\WindowStateToMarginSizeConverter.cs" />
-    <Compile Include="ViewModels\AdminProdileEditViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModelWorker.cs" />
     <Compile Include="ViewModels\MainWindowModelAdmin.cs" />
@@ -179,6 +178,12 @@
     </Compile>
     <Compile Include="Views\UserProfileEdit\AdminProfileEdit.xaml.cs">
       <DependentUpon>AdminProfileEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserProfileEdit\ResetPassword.xaml.cs">
+      <DependentUpon>ResetPassword.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserProfileEdit\ResetPassworkWorker.xaml.cs">
+      <DependentUpon>ResetPassworkWorker.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserProfileEdit\WorkerProfileEdit.xaml.cs">
       <DependentUpon>WorkerProfileEdit.xaml</DependentUpon>
@@ -266,6 +271,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\UserProfileEdit\ResetPassword.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserProfileEdit\ResetPassworkWorker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\UserProfileEdit\WorkerProfileEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -314,7 +327,7 @@
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
       <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 et x64%29</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
@@ -324,6 +337,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\double-down.png" />
+    <Resource Include="Images\search-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="data\db-local.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -331,8 +348,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>db-local.mdf</DependentUpon>
     </Content>
-    <Resource Include="Images\double-down.png" />
-    <Resource Include="Images\search-icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.5.1.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.5.1.0\build\MaterialDesignThemes.targets')" />

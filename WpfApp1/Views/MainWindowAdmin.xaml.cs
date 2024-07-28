@@ -111,5 +111,11 @@ namespace WpfApp1.Views
 
             grcontent.Children.Add(adminProfileEdit);
         }
+        private void MenuItem_Click2(object sender, RoutedEventArgs e)
+        {
+            Views.UserProfileEdit.ResetPassword resetPassword = new Views.UserProfileEdit.ResetPassword();
+
+            grcontent.Children.Add(resetPassword);
+        }
     }
 }

@@ -162,7 +162,7 @@ namespace WpfApp1.Repositories
                         WorkerModel worker = new WorkerModel()
                         {
                             IdWorker = int.Parse(reader[0].ToString()),
-                            Username = reader[8].ToString(),
+                            Username = reader[7].ToString(),
                             Password = string.Empty,
                             Name = reader[2].ToString(),
                             LastName = reader[1].ToString(),
@@ -193,7 +193,7 @@ namespace WpfApp1.Repositories
                         worker = new WorkerModel()
                         {
                             IdWorker = int.Parse(reader[0].ToString()),
-                            Username = reader[8].ToString(),
+                            Username = reader[7].ToString(),
                             Password = string.Empty,
                             Name = reader[2].ToString(),
                             LastName = reader[1].ToString(),
@@ -205,6 +205,72 @@ namespace WpfApp1.Repositories
                 }
             }
             return worker;
+        }
+        public void UpdateOnlyPasswordUsername(WorkerModel admin)
+        {
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = @"
+                    UPDATE [WORKER]
+                    SET Password = @Password,
+                        Username = @Username
+                    WHERE IDUSER = @IdWorker";
+                command.Parameters.Add("@Username", SqlDbType.NVarChar).Value = admin.Username;
+                command.Parameters.Add("@Password", SqlDbType.NVarChar).Value = admin.Password;
+                command.Parameters.Add("@IdWorker", SqlDbType.NVarChar).Value = admin.IdWorker;
+
+
+                command.ExecuteNonQuery();
+            }
+        }
+        public void UpdateWithoutPasswordUsername(WorkerModel admin)
+        {
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = @"
+                    UPDATE [WORKER]
+                    SET Name = @Name,
+                        LastName = @LastName,
+                        CIN = @Cin,
+                        ADRESSMAIL = @Email,
+                        NUMTEL = @NumTel
+                    WHERE IDUSER = @IdWorker";
+
+                command.Parameters.Add("@IdWorker", SqlDbType.NVarChar).Value = admin.IdWorker;
+                command.Parameters.Add("@Name", SqlDbType.NVarChar).Value = admin.Name;
+                command.Parameters.Add("@LastName", SqlDbType.NVarChar).Value = admin.LastName;
+                command.Parameters.Add("@Cin", SqlDbType.NVarChar).Value = admin.Cin;
+                command.Parameters.Add("@Email", SqlDbType.NVarChar).Value = admin.Email;
+                command.Parameters.Add("@NumTel", SqlDbType.NVarChar).Value = admin.NumTel;
+
+
+                command.ExecuteNonQuery();
+            }
+        }
+        public string GetPassword(string pass)
+        {
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "select Password from [WORKER] where Username = @pass ";
+                command.Parameters.Add("@pass", SqlDbType.NVarChar).Value = pass;
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return (reader[0].ToString());
+                    }
+                }
+            }
+            return null;
         }
     }
 }

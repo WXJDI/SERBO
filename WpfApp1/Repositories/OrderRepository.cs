@@ -162,7 +162,7 @@ namespace WpfApp1.Repositories
                             IdOrder = int.Parse(reader[2].ToString()),
                             IdClient = int.Parse(reader[0].ToString()),
                             IdWorker = int.Parse(reader[1].ToString()),
-                            TotalPrice = float.Parse(reader[4].ToString()),
+                            TotalPrice = float.Parse(reader[4].ToString())
                         };
                     }
                     
