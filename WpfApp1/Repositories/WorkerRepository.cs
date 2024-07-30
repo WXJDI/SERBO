@@ -272,5 +272,20 @@ namespace WpfApp1.Repositories
             }
             return null;
         }
+        public bool HasOrders(int id)
+        {
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "select IDCOMMAND from [COMMAND] where IDUSER = @id ";
+                command.Parameters.Add("@id", SqlDbType.NVarChar).Value = id;
+                using (var reader = command.ExecuteReader())
+                {
+                    return reader.Read();
+                }
+            }
+        }
     }
 }

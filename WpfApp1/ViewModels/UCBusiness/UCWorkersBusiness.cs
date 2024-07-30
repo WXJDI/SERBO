@@ -114,8 +114,16 @@ namespace WpfApp1.ViewModels.UCBusiness
         {
             if (_selectedworker != null)
             {
-                _workerRepository.Delete(_selectedworker);
-                RefreshProductList();
+                if (!(_workerRepository.HasOrders(_selectedworker.IdWorker)))
+                {
+                    _workerRepository.Delete(_selectedworker);
+                    RefreshProductList();
+                }
+                else
+                {
+                    System.Windows.MessageBox.Show("Worker can't be deleted !! Please Delete Orders Associated with this Worker !!!");
+                }
+
             }
             else
             {

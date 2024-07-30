@@ -190,6 +190,21 @@ namespace WpfApp1.Repositories
             }
             return client;
         }
+        public bool HasOrders(int id)
+        {
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "select IDCOMMAND from [CLI_IDUSER] where idproduct = @id ";
+                command.Parameters.Add("@id", SqlDbType.NVarChar).Value = id;
+                using (var reader = command.ExecuteReader())
+                {
+                    return reader.Read();
+                }
+            }
+        }
     }
 }
 

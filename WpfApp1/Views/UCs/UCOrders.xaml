@@ -151,7 +151,7 @@ Tag="{StaticResource color9}" Margin="0,20,0,0">
                     <TextBlock Foreground="{StaticResource color3}" FontFamily="Montserret" FontWeight="Medium" FontSize="15" Grid.Column="3" HorizontalAlignment="Center" TextWrapping="Wrap" Text="TotalPrice" VerticalAlignment="Center"/>
                     <TextBlock Margin="30,0,0,0" Foreground="{StaticResource color3}" HorizontalAlignment="Center" FontFamily="Montserret" FontWeight="Medium" FontSize="15" Grid.Column="4" TextWrapping="Wrap" Text="Idproduct" VerticalAlignment="Center"/>
                     <TextBlock Foreground="{StaticResource color3}" FontFamily="Montserret" FontWeight="Medium" FontSize="15" Grid.Column="5" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Name" VerticalAlignment="Center"/>
-                    <TextBlock Foreground="{StaticResource color3}" FontFamily="Montserret" FontWeight="Medium" FontSize="15" Grid.Column="6" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Nomber" VerticalAlignment="Center"/>
+                    <TextBlock Foreground="{StaticResource color3}" FontFamily="Montserret" FontWeight="Medium" FontSize="15" Grid.Column="6" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Quantity" VerticalAlignment="Center"/>
                     <TextBlock Foreground="{StaticResource color3}" FontFamily="Montserret" FontWeight="Medium" FontSize="15" Grid.Column="7" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Price" VerticalAlignment="Center"/>
                 </Grid>
                 <Grid Grid.Row="1">
@@ -159,8 +159,8 @@ Tag="{StaticResource color9}" Margin="0,20,0,0">
                         <ColumnDefinition Width="420"/>
                         <ColumnDefinition Width="380"/>
                     </Grid.ColumnDefinitions>
-                    <ListBox Grid.Column="0" HorizontalAlignment="Left" Background="#0A0031"  BorderBrush="Blue" SelectedItem="{Binding SelectedOrder}" ItemTemplate="{DynamicResource ListBoxItemTemplate1}" ItemsSource="{Binding ListOfOrders}" d:ItemsSource="{d:SampleData ItemCount=1024}" />
-                    <ListBox Grid.Column="1" HorizontalAlignment="Left" Background="#0A0031"  BorderBrush="Blue" SelectedItem="{Binding SelectedProduct}" ItemTemplate="{DynamicResource ListBoxItemTemplate2}" ItemsSource="{Binding ListOfProducts , UpdateSourceTrigger=PropertyChanged}" d:ItemsSource="{d:SampleData ItemCount=1024}" />
+                    <ListBox Grid.Column="0" HorizontalAlignment="Left" Background="#0A0031"  BorderBrush="Blue" SelectedItem="{Binding SelectedOrder , UpdateSourceTrigger=PropertyChanged}" ItemTemplate="{DynamicResource ListBoxItemTemplate1}" ItemsSource="{Binding ListOfOrders , UpdateSourceTrigger=PropertyChanged}" d:ItemsSource="{d:SampleData ItemCount=1024}" />
+                    <ListBox Grid.Column="1" HorizontalAlignment="Left" Background="#0A0031"  BorderBrush="Blue" SelectedItem="{Binding SelectedProduct , UpdateSourceTrigger=PropertyChanged}" ItemTemplate="{DynamicResource ListBoxItemTemplate2}" ItemsSource="{Binding ListOfProducts , UpdateSourceTrigger=PropertyChanged}" d:ItemsSource="{d:SampleData ItemCount=1024}" />
                 </Grid>
                     
             </Grid>

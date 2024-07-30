@@ -128,6 +128,8 @@
     <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Repositories\WorkerRepository.cs" />
+    <Compile Include="Tools\InverseBooleanToVisibilityConverter.cs" />
+    <Compile Include="Tools\RelayCommand.cs" />
     <Compile Include="Tools\WindowStateToMarginSizeConverter.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModelWorker.cs" />

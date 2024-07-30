@@ -23,6 +23,17 @@ namespace WpfApp1.Models
         public OrderModel()
         {
             IdProducts = new List<ProductModel>();
+
+            
+        }
+        public void CalculeTotalePrice()
+        {
+            float totalprice = 0;
+            for (int i=0;i<IdProducts.Count;i++)
+            {
+                totalprice += IdProducts[i].Price * IdProducts[i].Quantite;
+            }
+            TotalPrice = totalprice;
         }
 
     }

@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Input;
 using WpfApp1.Models;
 using WpfApp1.Repositories;
@@ -48,9 +49,27 @@ namespace WpfApp1.ViewModels.UCBusiness
 
         private void Save1Product(object obj)
         {
-            _selectedProduct = _productRepository.GetByUsername(_selectedProduct.Name);
-            ListOfProducts.Add(_selectedProduct);
-            uCStock.Close();
+            ProductModel prod = new ProductModel();
+            prod = _productRepository.GetByUsername(_selectedProduct.Name);
+            if (prod !=null)
+            {
+                if (prod.Quantite >= _selectedProduct.Quantite)
+                {
+                    prod.Quantite = _selectedProduct.Quantite;
+                    ListOfProducts.Add(prod);
+                    _selectedProduct = null;
+                    uCStock.Close();
+                }
+                else
+                {
+                    MessageBox.Show("The quantite offred not found at the stock !!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("There is no product has that name !!");
+            }
+                
 
         }
 
@@ -174,9 +193,17 @@ namespace WpfApp1.ViewModels.UCBusiness
             {
                 ToSave = false;
                 ListOfProducts = new ObservableCollection<ProductModel>(_selectedOrder.IdProducts);
+                for (int i = 0; i < ListOfProducts.Count(); i++)
+                {
+                    ProductModel product = new ProductModel(ListOfProducts[i]);
+
+                    product.Quantite = _productRepository.GetByUsername(ListOfProducts[i].Name).Quantite + product.Quantite;
+
+                    _productRepository.Update(product);
+
+                }
                 OrderDataEntry = new OrderDataEntry();
                 OrderDataEntry.DataContext = this;
-
                 OrderDataEntry.ShowDialog();
             }
             else
@@ -187,26 +214,49 @@ namespace WpfApp1.ViewModels.UCBusiness
 
         private void DeleteProduct(object obj)
         {
-            if (_selectedOrder != null && _selectedProduct == null)
+            if (SelectedProduct != null)
             {
-                _orderRepository.Delete(_selectedOrder);
+                
+                ProductModel product = new ProductModel(SelectedProduct);
+
+                product.Quantite = _productRepository.GetByUsername(SelectedProduct.Name).Quantite + product.Quantite;
+
+                _productRepository.Update(product);
+                _orderRepository.DeleteProduct(SelectedProduct, _selectedOrder);
+                ListOfProducts = new ObservableCollection<ProductModel>(_orderRepository.GetByID(SelectedOrder.IdOrder).IdProducts);
+                if (ListOfProducts.Count == 0)
+                {
+                    _orderRepository.Delete(SelectedOrder);
+                    ListOfOrders = new ObservableCollection<OrderModel>(_orderRepository.GetByAll());
+                }
+
+            }
+            else if (SelectedOrder != null)
+            {
+                for (int i = 0; i < SelectedOrder.IdProducts.Count(); i++)
+                {
+                    ProductModel product = new ProductModel(SelectedOrder.IdProducts[i]);
+
+                    product.Quantite = _productRepository.GetByUsername(SelectedOrder.IdProducts[i].Name).Quantite + product.Quantite;
+
+                    _productRepository.Update(product);
+
+                }
+                _orderRepository.Delete(SelectedOrder);
                 RefreshOrderList();
                 ListOfProducts = new ObservableCollection<ProductModel>();
-            }
-            if (_selectedOrder != null && _selectedProduct != null)
-            {
-                _orderRepository.DeleteProduct(_selectedProduct,_selectedOrder);
-                ListOfProducts = new ObservableCollection<ProductModel>(_orderRepository.GetByID(_selectedOrder.IdOrder).IdProducts);
+
             }
             else
             {
-                System.Windows.MessageBox.Show("Please select a product!");
+                System.Windows.MessageBox.Show("Please select a product or an order!");
             }
         }
 
         private void SaveProduct(object obj)
         {
             _selectedOrder.IdProducts = new List<ProductModel>(ListOfProducts);
+            _selectedOrder.CalculeTotalePrice();
             ClientRepository clientRepository = new ClientRepository();
             WorkerRepository workerRepository = new WorkerRepository();
             if (clientRepository.GetByID(_selectedOrder.IdClient) == null )
@@ -217,8 +267,18 @@ namespace WpfApp1.ViewModels.UCBusiness
             }
             else
             {
+                for (int i = 0; i < ListOfProducts.Count(); i++)
+                {
+                    ProductModel product = new ProductModel(ListOfProducts[i]);
+
+                    product.Quantite = _productRepository.GetByUsername(ListOfProducts[i].Name).Quantite - product.Quantite;
+
+                    _productRepository.Update(product);
+
+                }
                 if (ToSave)
-                { 
+                {
+                        
                     _orderRepository.Add(_selectedOrder);
                 }
                 else

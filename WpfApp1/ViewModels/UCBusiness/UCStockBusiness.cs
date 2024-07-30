@@ -115,8 +115,15 @@ namespace WpfApp1.ViewModels.UCBusiness
         {
             if (_selectedProduct != null)
             {
-                _productRepository.Delete(_selectedProduct);
-                RefreshProductList();
+                if (!(_productRepository.HasOrders(_selectedProduct.Id)))
+                {
+                    _productRepository.Delete(_selectedProduct);
+                    RefreshProductList();
+                }
+                else
+                {
+                    System.Windows.MessageBox.Show("PRODUCT can't be deleted !! Please Delete Orders Associated with this Product !!!");
+                }
             }
             else
             {

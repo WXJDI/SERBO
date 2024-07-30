@@ -15,63 +15,44 @@ namespace WpfApp1.Repositories
         public void Add(OrderModel order)
         {
             using (var connection = GetConnection())
-            using (var command = new SqlCommand())
             {
                 connection.Open();
-                command.Connection = connection;
-                command.CommandText = "select MAX(IDCOMMAND) from [COMMAND]";
-                using (var reader = command.ExecuteReader())
+
+                // Get the max IDCARD and calculate the new IdOrder
+                using (var command = new SqlCommand("SELECT MAX(IDCOMMAND) FROM [COMMAND]", connection))
                 {
-                    if (reader.Read())
+                    var result = command.ExecuteScalar();
+                    order.IdOrder = (result != DBNull.Value) ? Convert.ToInt32(result) + 1 : 1;
+                }
+
+                // Insert into COMMAND table
+                using (var command = new SqlCommand(@"
+            INSERT INTO [COMMAND] (IDCOMMAND, CLI_IDUSER, IDUSER, TOTALPRICE) 
+            VALUES (@IdCommand, @IdClient, @IdWorker, @TotalPrice);", connection))
+                {
+                    command.Parameters.Add("@IdClient", SqlDbType.NVarChar).Value = order.IdClient;
+                    command.Parameters.Add("@IdWorker", SqlDbType.NVarChar).Value = order.IdWorker;
+                    command.Parameters.Add("@IdCommand", SqlDbType.Int).Value = order.IdOrder;
+                    command.Parameters.Add("@TotalPrice", SqlDbType.Decimal).Value = order.TotalPrice;
+                    command.ExecuteNonQuery();
+                }
+
+                // Insert into PRODUCTCOMMAND table
+                foreach (var product in order.IdProducts)
+                {
+                    using (var command = new SqlCommand(@"
+                INSERT INTO [PRODUCTCOMMAND] (IDPRODUCT, IDCOMMAND, QUANTITY) 
+                VALUES (@IdProduct, @IdCommand, @Quantity);", connection))
                     {
-                        if (!reader.IsDBNull(0))
-                        {
-                            order.IdOrder = int.Parse(reader[0].ToString()) + 1;
-                        }
-                        else
-                        {
-                            order.IdOrder = 1; // Si la table est vide, commencez par 1
-                        }
+                        command.Parameters.Add("@IdProduct", SqlDbType.Int).Value = product.Id;
+                        command.Parameters.Add("@IdCommand", SqlDbType.Int).Value = order.IdOrder;
+                        command.Parameters.Add("@Quantity", SqlDbType.Int).Value = product.Quantite;
+                        command.ExecuteNonQuery();
                     }
                 }
             }
-
-            using (var connection = GetConnection())
-            using (var command = new SqlCommand())
-            {
-                connection.Open();
-                command.Connection = connection;
-                    command.CommandText = @"
-                    INSERT INTO [COMMAND]
-                    (IDCOMMAND,CLI_IDUSER,IDUSER,TOTALPRICE) 
-                    VALUES 
-                    (@IdCommand,@IdClient, @IdWorker,@TotalPrice);";
-                    command.Parameters.Add("@IdClient", SqlDbType.NVarChar).Value = order.IdClient;
-                    command.Parameters.Add("@IdWorker", SqlDbType.NVarChar).Value = order.IdWorker;
-                    command.Parameters.Add("@IdCommand", SqlDbType.NVarChar).Value = order.IdOrder;
-                    command.Parameters.Add("@TotalPrice", SqlDbType.NVarChar).Value = order.TotalPrice;
-                    command.ExecuteNonQuery();      
-            }
-            using (var connection = GetConnection())
-            using (var command = new SqlCommand())
-            {
-                connection.Open();
-                command.Connection = connection;
-                for(int i = 0;i<order.IdProducts.Count;i++)
-                {
-                    command.CommandText = @"
-                        INSERT INTO [PRODUCTCOMMAND]
-                        (IDPRODUCT, IDCOMMAND, QUANTITY) 
-                        VALUES 
-                        (@Idproduct, @Idcommand,  @Quantity);";
-                    command.Parameters.Add("@Idproduct", SqlDbType.NVarChar).Value = order.IdProducts[i].Id;
-                    command.Parameters.Add("@Idcommand", SqlDbType.NVarChar).Value = order.IdOrder;
-                    command.Parameters.Add("@Quantity", SqlDbType.NVarChar).Value = order.IdProducts[i].Quantite;
-                    command.ExecuteNonQuery();
-                }
-                
-            }
         }
+
         public void Update(OrderModel order)
         {
             using (var connection = GetConnection())
@@ -83,13 +64,11 @@ namespace WpfApp1.Repositories
                     UPDATE [COMMAND]
                     SET CLI_IDUSER = @IdClient, 
                         IDUSER = @IdWorker,
-                        DATECOMMAND = @DateCommand,
-                        TOTALPRICE = @TotalPrice ,
-                    WHERE IDCOMMAND = @IdCommand";
+                        TOTALPRICE = @TotalPrice 
+                    WHERE IDCOMMAND = @IdCommand;";
                     command.Parameters.Add("@IdClient", SqlDbType.NVarChar).Value = order.IdClient;
                     command.Parameters.Add("@IdWorker", SqlDbType.NVarChar).Value = order.IdWorker;
                     command.Parameters.Add("@IdCommand", SqlDbType.NVarChar).Value = order.IdOrder;
-                    command.Parameters.Add("@DateCommand", SqlDbType.NVarChar).Value = order.DateOrder;
                     command.Parameters.Add("@TotalPrice", SqlDbType.NVarChar).Value = order.TotalPrice;
 
                     command.ExecuteNonQuery();
@@ -104,9 +83,10 @@ namespace WpfApp1.Repositories
                 {
                     command.CommandText = @"
                     UPDATE [PRODUCTCOMMAND]
-                    SET Quantite = @quantite,     
+                    SET Quantity = @quantite
                     WHERE IDPRODUCT = @idproduct
-                    AND IDCOMMAND = @IdCommand";
+                    AND IDCOMMAND = @idCommand";
+
                     command.Parameters.Add("@idproduct", SqlDbType.NVarChar).Value = order.IdProducts[i].Id;
                     command.Parameters.Add("@quantite", SqlDbType.NVarChar).Value = order.IdProducts[i].Quantite;
                     command.Parameters.Add("@IdCommand", SqlDbType.NVarChar).Value = order.IdOrder;
@@ -119,30 +99,29 @@ namespace WpfApp1.Repositories
         public void Delete(OrderModel order)
         {
             using (var connection = GetConnection())
-            using (var command = new SqlCommand())
             {
                 connection.Open();
-                command.Connection = connection;
-                for (int i = 0; i < order.IdProducts.Count(); i++)
+
+                // Delete from PRODUCTCOMMAND table
+                foreach (var product in order.IdProducts)
                 {
-                    command.CommandText = "DELETE FROM [PRODUCTCOMMAND] WHERE IDCOMMAND = @IdCommand AND IDPRODUCT = @IdProduct ";
-                    command.Parameters.Add("@IdCommand", SqlDbType.NVarChar).Value = order.IdOrder;
-                    command.Parameters.Add("@IdProduct", SqlDbType.NVarChar).Value = order.IdProducts[i].Id;
-                    command.ExecuteNonQuery();
+                    using (var command = new SqlCommand("DELETE FROM [PRODUCTCOMMAND] WHERE IDCOMMAND = @IdCommand AND IDPRODUCT = @IdProduct", connection))
+                    {
+                        command.Parameters.Add("@IdCommand", SqlDbType.Int).Value = order.IdOrder;
+                        command.Parameters.Add("@IdProduct", SqlDbType.Int).Value = product.Id;
+                        command.ExecuteNonQuery();
+                    }
                 }
 
-            }
-            using (var connection = GetConnection())
-            using (var command = new SqlCommand())
-            {
-                connection.Open();
-                command.Connection = connection;
-                command.CommandText = "DELETE FROM [COMMAND] WHERE IDCOMMAND = @IdCommand";
-                    command.Parameters.Add("@IdCommand", SqlDbType.NVarChar).Value = order.IdOrder;           
+                // Delete from COMMAND table
+                using (var command = new SqlCommand("DELETE FROM [COMMAND] WHERE IDCOMMAND = @IdCommand", connection))
+                {
+                    command.Parameters.Add("@IdCommand", SqlDbType.Int).Value = order.IdOrder;
                     command.ExecuteNonQuery();
-                
+                }
             }
         }
+
         public OrderModel GetByID(int id)
         {
             OrderModel order = null;

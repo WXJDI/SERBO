@@ -61,7 +61,7 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock Margin="30,0,0,0" Foreground="{StaticResource color3}" HorizontalAlignment="Center" FontFamily="Montserret" FontWeight="Medium" FontSize="15" Grid.Column="0" TextWrapping="Wrap" Text="Idproduct" VerticalAlignment="Center"/>
                     <TextBlock Foreground="{StaticResource color3}" FontFamily="Montserret" FontWeight="Medium" FontSize="15" Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Name" VerticalAlignment="Center"/>
-                    <TextBlock Foreground="{StaticResource color3}" FontFamily="Montserret" FontWeight="Medium" FontSize="15" Grid.Column="2" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Nomber" VerticalAlignment="Center"/>
+                    <TextBlock Foreground="{StaticResource color3}" FontFamily="Montserret" FontWeight="Medium" FontSize="15" Grid.Column="2" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Quantity" VerticalAlignment="Center"/>
                 </Grid>
                 <ListBox Width="358" Grid.Row="1" HorizontalAlignment="Left" Background="#0A0031"  BorderBrush="Blue" SelectedItem="{Binding SelectedProduct}" ItemTemplate="{DynamicResource ListBoxItemTemplate2}"  ItemsSource="{Binding ListOfProducts}" d:ItemsSource="{d:SampleData ItemCount=1024}" />
             </Grid>

@@ -114,6 +114,15 @@ namespace WpfApp1.ViewModels.UCBusiness
         {
             if (_selectedClient != null)
             {
+                if (!(_clientRepository.HasOrders(_selectedClient.IdClient)))
+                {
+                    _clientRepository.Delete(_selectedClient);
+                    RefreshProductList();
+                }
+                else
+                {
+                    System.Windows.MessageBox.Show("CLIENT can't be deleted !! Please Delete Orders Associated with this Client !!!");
+                }
                 _clientRepository.Delete(_selectedClient);
                 RefreshProductList();
             }
